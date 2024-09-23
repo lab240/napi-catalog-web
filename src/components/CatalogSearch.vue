@@ -28,7 +28,7 @@ interface ConfigFile {
 const searchQuery = ref('')
 const files = ref<ConfigFile[]>([])
 const currentPage = ref(1)
-const itemsPerPage = 5
+const itemsPerPage = 20
 
 const filteredFiles = computed(() => {
     return files.value.filter(file =>
@@ -123,7 +123,7 @@ onMounted(async () => {
 
     button {
         margin-left: 1rem;
-        color: blue;
+        color: hsla(160, 100%, 37%, 1);
         text-decoration: underline;
         background: none;
         border: none;
