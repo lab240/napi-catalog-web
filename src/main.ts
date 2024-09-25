@@ -1,7 +1,3 @@
-import './assets/main.css'
-import '@/assets/styles.scss'
-import '@/assets/tailwind.css'
-
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
@@ -12,6 +8,10 @@ import PrimeVue from 'primevue/config'
 import ConfirmationService from 'primevue/confirmationservice'
 import ToastService from 'primevue/toastservice'
 
+import './assets/main.css'
+import '@/assets/styles.scss'
+import '@/assets/tailwind.css'
+
 const app = createApp(App)
 
 app.use(router)
@@ -20,9 +20,9 @@ app.use(PrimeVue, {
     ripple: true,
     theme: {
         preset: Aura,
-        // options: {
-        //     darkModeSelector: '.app-dark'
-        // }
+        options: {
+            darkModeSelector: '.app-dark'
+        }
     }
 })
 app.use(i18n)

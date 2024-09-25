@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import axios from 'axios'
+import Paginator from 'primevue/paginator'
 
 interface ConfigFile {
     name: string
@@ -20,26 +21,15 @@ const filteredFiles = computed(() => {
     )
 })
 
-const totalPages = computed(() => {
-    return Math.ceil(filteredFiles.value.length / itemsPerPage.value)
-})
-
 const paginatedFiles = computed(() => {
     const start = (currentPage.value - 1) * itemsPerPage.value
     const end = start + itemsPerPage.value
     return filteredFiles.value.slice(start, end)
 })
 
-const prevPage = () => {
-    if (currentPage.value > 1) {
-        currentPage.value--
-    }
-}
-
-const nextPage = () => {
-    if (currentPage.value < totalPages.value) {
-        currentPage.value++
-    }
+const onPageChange = (event: any) => {
+    currentPage.value = event.page + 1
+    itemsPerPage.value = event.rows
 }
 
 const resetPage = () => {
@@ -89,57 +79,19 @@ onMounted(async () => {
 
 <template>
     <div>
-        <input v-model="searchQuery" placeholder="Поиск конфигураций..." @input="resetPage" />
+        <IconField>
+            <InputIcon class="pi pi-search" />
+            <InputText id="search-conf" v-model="searchQuery" :placeholder="$t('catalog.header.title')" />
+        </IconField>
+
         <ul>
-            <li v-for="file in paginatedFiles" :key="file.url">
+            <li v-for="file in paginatedFiles" :key="file.url" class="">
                 {{ file.name }} ({{ file.type }})
-                <button @click="downloadFile(file.url, file.name)">Скачать</button>
+                <Button :label="$t('button.download.label')" icon="pi pi-check" iconPos="right"
+                    @click="downloadFile(file.url, file.name)" raised />
             </li>
         </ul>
-        <Paginator :rows="itemsPerPage" :totalRecords="filteredFiles.length" :rowsPerPageOptions="[5, 10, 20, 30]">
-        </Paginator>
-        <div class="pagination">
-            <button @click="prevPage" :disabled="currentPage === 1">Previous</button>
-            <span>Page {{ currentPage }} of {{ totalPages }}</span>
-            <button @click="nextPage" :disabled="currentPage === totalPages">Next</button>
-        </div>
+        <Paginator :first="(currentPage - 1) * itemsPerPage" :rows="itemsPerPage" :totalRecords="filteredFiles.length"
+            :rowsPerPageOptions="[5, 10, 20, 30]" @page="onPageChange" />
     </div>
 </template>
-
-<style scoped>
-    input {
-        margin-bottom: 1rem;
-        padding: 0.5rem;
-        width: 100%;
-        box-sizing: border-box;
-    }
-
-    ul {
-        list-style-type: none;
-        padding: 0;
-    }
-
-    li {
-        margin-bottom: 0.5rem;
-    }
-
-    button {
-        margin-left: 1rem;
-        color: hsla(160, 100%, 37%, 1);
-        text-decoration: underline;
-        background: none;
-        border: none;
-        cursor: pointer;
-    }
-
-    .pagination {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 1rem;
-    }
-
-    .pagination button {
-        margin: 0 0.5rem;
-    }
-</style>

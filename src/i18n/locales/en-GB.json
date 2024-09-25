@@ -1,1 +1,20 @@
-{}
+{
+  "button": {
+    "download": {
+      "label": "Download"
+    }
+  },
+  "catalog": {
+    "header": {
+      "title": "Catalog search"
+    }
+  },
+  "lang": {
+    "en": "English",
+    "meta": {
+      "placeholder": "Select a language"
+    },
+    "ru": "Russian",
+    "title": "Language"
+  }
+}
