@@ -1,20 +1,3 @@
-<template>
-    <div>
-        <input v-model="searchQuery" placeholder="Поиск конфигураций..." @input="resetPage" />
-        <ul>
-            <li v-for="file in paginatedFiles" :key="file.url">
-                {{ file.name }} ({{ file.type }})
-                <button @click="downloadFile(file.url, file.name)">Скачать</button>
-            </li>
-        </ul>
-        <div class="pagination">
-            <button @click="prevPage" :disabled="currentPage === 1">Previous</button>
-            <span>Page {{ currentPage }} of {{ totalPages }}</span>
-            <button @click="nextPage" :disabled="currentPage === totalPages">Next</button>
-        </div>
-    </div>
-</template>
-
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import axios from 'axios'
@@ -103,6 +86,23 @@ onMounted(async () => {
     files.value = extractFiles(catalog)
 })
 </script>
+
+<template>
+    <div>
+        <input v-model="searchQuery" placeholder="Поиск конфигураций..." @input="resetPage" />
+        <ul>
+            <li v-for="file in paginatedFiles" :key="file.url">
+                {{ file.name }} ({{ file.type }})
+                <button @click="downloadFile(file.url, file.name)">Скачать</button>
+            </li>
+        </ul>
+        <div class="pagination">
+            <button @click="prevPage" :disabled="currentPage === 1">Previous</button>
+            <span>Page {{ currentPage }} of {{ totalPages }}</span>
+            <button @click="nextPage" :disabled="currentPage === totalPages">Next</button>
+        </div>
+    </div>
+</template>
 
 <style scoped>
     input {
