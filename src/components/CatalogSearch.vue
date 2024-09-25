@@ -11,7 +11,7 @@ interface ConfigFile {
 const searchQuery = ref('')
 const files = ref<ConfigFile[]>([])
 const currentPage = ref(1)
-const itemsPerPage = 20
+const itemsPerPage = ref(10)
 
 const filteredFiles = computed(() => {
     return files.value.filter(file =>
@@ -21,12 +21,12 @@ const filteredFiles = computed(() => {
 })
 
 const totalPages = computed(() => {
-    return Math.ceil(filteredFiles.value.length / itemsPerPage)
+    return Math.ceil(filteredFiles.value.length / itemsPerPage.value)
 })
 
 const paginatedFiles = computed(() => {
-    const start = (currentPage.value - 1) * itemsPerPage
-    const end = start + itemsPerPage
+    const start = (currentPage.value - 1) * itemsPerPage.value
+    const end = start + itemsPerPage.value
     return filteredFiles.value.slice(start, end)
 })
 
@@ -96,6 +96,8 @@ onMounted(async () => {
                 <button @click="downloadFile(file.url, file.name)">Скачать</button>
             </li>
         </ul>
+        <Paginator :rows="itemsPerPage" :totalRecords="filteredFiles.length" :rowsPerPageOptions="[5, 10, 20, 30]">
+        </Paginator>
         <div class="pagination">
             <button @click="prevPage" :disabled="currentPage === 1">Previous</button>
             <span>Page {{ currentPage }} of {{ totalPages }}</span>
