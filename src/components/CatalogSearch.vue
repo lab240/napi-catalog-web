@@ -85,7 +85,7 @@ onMounted(async () => {
         </IconField>
 
         <ul>
-            <li v-for="file in paginatedFiles" :key="file.url" class="">
+            <li v-for="file in paginatedFiles" :key="file.url" class="mb-3">
                 {{ file.name }} ({{ file.type }})
                 <Button :label="$t('button.download.label')" icon="pi pi-check" iconPos="right"
                     @click="downloadFile(file.url, file.name)" raised />

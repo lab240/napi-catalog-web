@@ -8,7 +8,6 @@ import PrimeVue from 'primevue/config'
 import ConfirmationService from 'primevue/confirmationservice'
 import ToastService from 'primevue/toastservice'
 
-import './assets/main.css'
 import '@/assets/styles.scss'
 import '@/assets/tailwind.css'
 
