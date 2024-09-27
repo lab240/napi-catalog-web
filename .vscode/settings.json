@@ -1,0 +1,94 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit"
+  },
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.renderWhitespace": "boundary",
+  "editor.rulers": [
+    90
+  ],
+  "editor.wordWrap": "bounded",
+  "editor.wordWrapColumn": 90,
+  "editor.tabSize": 4,
+  "editor.insertSpaces": true,
+  "editor.trimAutoWhitespace": true,
+  "files.encoding": "utf8",
+  "files.eol": "auto",
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "todo-tree.general.tagGroups": {
+    "BUG": [
+      "BUG",
+      "ERROR",
+      "ERR",
+      "ISSUE",
+      "PROBLEM"
+    ],
+    "HACK": [
+      "HACK",
+      "HACKY",
+      "HACKED",
+      "HACKING",
+      "HACKS"
+    ],
+    "FIX": [
+      "FIXME",
+      "FIXIT",
+      "FIX IT",
+      "FIX"
+    ],
+    "TODO": [
+      "TODO",
+      "TO DO",
+      "TO-DO",
+      "TASK",
+      "TASKS",
+      "DO IT",
+      "DOIT"
+    ],
+    "IDEA": [
+      "IDEA",
+      "IDEAS"
+    ]
+  },
+  "todo-tree.filtering.excludeGlobs": [
+    "**/.vscode/**",
+    "**/.git/**",
+    "**/.github/**",
+    ".gitignore"
+  ],
+  "todo-tree.tree.hideTreeWhenEmpty": true,
+  "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^\\s*(-|\\d+.))\\s*($TAGS)",
+  "[yaml]": {
+    "editor.tabSize": 2
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[toml]": {
+    "editor.defaultFormatter": "tamasfe.even-better-toml"
+  },
+  "i18n-ally.localesPaths": [
+    "src/i18n",
+    "src/i18n/locales"
+  ],
+  "i18n-ally.editor.preferEditor": true,
+  "i18n-ally.enabledFrameworks": [
+    "vue"
+  ],
+  "i18n-ally.translate.deepl.useFreeApiEntry": true,
+  "i18n-ally.encoding": "utf-8",
+  "i18n-ally.keystyle": "nested",
+  "i18n-ally.sortKeys": true,
+  "i18n-ally.dirStructure": "auto",
+  "i18n-ally.sourceLanguage": "ru-RU",
+  "cSpell.words": [
+    "datatable",
+    "Gridlines",
+    "inputtext",
+    "modbus",
+    "primevue"
+  ],
+}
