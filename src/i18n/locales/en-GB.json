@@ -16,5 +16,11 @@
     },
     "ru": "Russian",
     "title": "Language"
+  },
+  "theme": {
+    "dark": "Dark",
+    "light": "Light",
+    "subtitle": "Theme",
+    "system": "System"
   }
 }
