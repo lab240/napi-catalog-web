@@ -1,8 +1,8 @@
 <template>
     <div class="card">
-        <DataTable v-model:filters="filters" :value="sensors" paginator showGridlines :rows="10" dataKey="model"
-            filterDisplay="menu" :loading="loading" :globalFilterFields="['brand', 'model', 'tags']"
-            @row-click="onRowClick">
+        <DataTable v-model:selection="selectedSensor" selectionMode="single" v-model:filters="filters" :value="sensors"
+            paginator showGridlines :rows="10" dataKey="model" filterDisplay="menu" :loading="loading"
+            :globalFilterFields="['brand', 'model', 'tags']" @row-click="onRowClick">
             <template #header>
                 <div class="flex justify-between">
                     <Button type="button" icon="pi pi-filter-slash" label="Clear" outlined @click="clearFilter()" />
@@ -67,6 +67,7 @@ const filters = ref();
 const tags = ref([]);
 const loading = ref(true);
 const router = useRouter();
+const selectedSensor = ref();
 
 onMounted(async () => {
     const response = await axios.get('https://raw.githubusercontent.com/lab240/napi-catalog/refs/heads/main/catalog.json');
@@ -120,9 +121,15 @@ const getAllTags = (sensors) => {
 };
 
 const setTagColor = (tag) => {
-    const colors = ['success', 'info', 'warning', 'danger'];
-    const index = tag.length % colors.length;
-    return colors[index];
+    const tagColors = {
+        'snmp': 'info',
+        'modbus rtu': 'success',
+        'modbusrtu': 'success',
+        'modbus tcp': 'warn',
+        'modbustcp': 'warn'
+    };
+
+    return tagColors[tag.toLowerCase()] || 'secondary';
 };
 
 const onRowClick = (event) => {
