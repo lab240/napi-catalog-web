@@ -1,7 +1,8 @@
 <template>
     <div class="card">
         <DataTable v-model:filters="filters" :value="sensors" paginator showGridlines :rows="10" dataKey="model"
-            filterDisplay="menu" :loading="loading" :globalFilterFields="['brand', 'model', 'tags']">
+            filterDisplay="menu" :loading="loading" :globalFilterFields="['brand', 'model', 'tags']"
+            @row-click="onRowClick">
             <template #header>
                 <div class="flex justify-between">
                     <Button type="button" icon="pi pi-filter-slash" label="Clear" outlined @click="clearFilter()" />
@@ -51,6 +52,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 import axios from 'axios';
 import { FilterMatchMode, FilterOperator } from '@primevue/core/api';
 import Button from 'primevue/button';
@@ -64,6 +66,7 @@ const sensors = ref([]);
 const filters = ref();
 const tags = ref([]);
 const loading = ref(true);
+const router = useRouter();
 
 onMounted(async () => {
     const response = await axios.get('https://raw.githubusercontent.com/lab240/napi-catalog/refs/heads/main/catalog.json');
@@ -120,5 +123,9 @@ const setTagColor = (tag) => {
     const colors = ['success', 'info', 'warning', 'danger'];
     const index = tag.length % colors.length;
     return colors[index];
+};
+
+const onRowClick = (event) => {
+    router.push({ path: `/sensor/${event.data.model}` });
 };
 </script>
