@@ -5,6 +5,7 @@ import LanguageSelect from './components/LanguageSelect.vue';
 import { onMounted, ref, watch } from 'vue'
 import { RouterView } from 'vue-router'
 import { useI18n } from 'vue-i18n'
+import CatalogSearchTable from './components/CatalogSearchTable.vue';
 
 const { availableLocales, locale, fallbackLocale } = useI18n()
 const selectedLocale = ref(locale.value)
@@ -32,7 +33,8 @@ watch(selectedLocale, (newLocale) => {
     <LanguageSelect />
     <div class="wrapper">
       <HelloWorld msg="You did it!" />
-      <CatalogSearch />
+      <!-- <CatalogSearch /> -->
+      <CatalogSearchTable />
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>

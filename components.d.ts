@@ -9,6 +9,8 @@ declare module 'vue' {
   export interface GlobalComponents {
     Button: typeof import('primevue/button')['default']
     CatalogSearch: typeof import('./src/components/CatalogSearch.vue')['default']
+    CatalogSearchTable: typeof import('./src/components/CatalogSearchTable.vue')['default']
+    copy: typeof import('./src/components/CatalogSearch copy.vue')['default']
     FloatLabel: typeof import('primevue/floatlabel')['default']
     IconField: typeof import('primevue/iconfield')['default']
     InputIcon: typeof import('primevue/inputicon')['default']
