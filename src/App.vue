@@ -6,6 +6,7 @@ import { onMounted, ref, watch } from 'vue'
 import { RouterView } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import CatalogSearchTable from './components/CatalogSearchTable.vue';
+import ThemeSelect from './components/ThemeSelect.vue';
 
 const { availableLocales, locale, fallbackLocale } = useI18n()
 const selectedLocale = ref(locale.value)
@@ -30,6 +31,7 @@ watch(selectedLocale, (newLocale) => {
 <template>
   <header>
     <LanguageButton />
+    <ThemeSelect />
     <LanguageSelect />
     <div class="wrapper">
       <HelloWorld msg="You did it!" />
