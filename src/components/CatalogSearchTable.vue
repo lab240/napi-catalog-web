@@ -39,7 +39,7 @@
                     </div>
                 </template>
                 <template #filter="{ filterModel }">
-                    <Select v-model="filterModel.value" :options="tags" placeholder="Select One" showClear>
+                    <Select v-model="filterModel.value" :options="tags" placeholder="Select One" filter showClear>
                         <template #option="slotProps">
                             <Tag :value="slotProps.option" :severity="setTagColor(slotProps.option)" />
                         </template>
