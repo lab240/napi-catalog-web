@@ -1,8 +1,9 @@
 <template>
     <div class="card">
-        <DataTable v-model:selection="selectedSensor" selectionMode="single" v-model:filters="filters" :value="sensors"
-            paginator showGridlines :rows="10" dataKey="model" filterDisplay="menu" :loading="loading"
-            :globalFilterFields="['brand', 'model', 'tags']" @row-click="onRowClick">
+        <DataTable v-model:selection="selectedSensor" :rows="10" :rowsPerPageOptions="[5, 10, 20, 50]"
+            selectionMode="single" v-model:filters="filters" :value="sensors" paginator showGridlines dataKey="model"
+            filterDisplay="menu" :loading="loading" :globalFilterFields="['brand', 'model', 'tags']"
+            @row-click="onRowClick" stripedRows>
             <template #header>
                 <div class="flex justify-between">
                     <Button type="button" icon="pi pi-filter-slash" label="Clear" outlined @click="clearFilter()" />

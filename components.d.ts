@@ -8,18 +8,24 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     Button: typeof import('primevue/button')['default']
+    Card: typeof import('primevue/card')['default']
     CatalogSearch: typeof import('./src/components/CatalogSearch.vue')['default']
     CatalogSearchTable: typeof import('./src/components/CatalogSearchTable.vue')['default']
+    Dialog: typeof import('primevue/dialog')['default']
     IconField: typeof import('primevue/iconfield')['default']
+    Image: typeof import('primevue/image')['default']
     InputIcon: typeof import('primevue/inputicon')['default']
     InputText: typeof import('primevue/inputtext')['default']
     LanguageButton: typeof import('./src/components/LanguageButton.vue')['default']
     LanguageSelect: typeof import('./src/components/LanguageSelect.vue')['default']
     Menu: typeof import('primevue/menu')['default']
+    Panel: typeof import('primevue/panel')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    ScrollPanel: typeof import('primevue/scrollpanel')['default']
     Select: typeof import('primevue/select')['default']
     SensorDetail: typeof import('./src/components/SensorDetail.vue')['default']
+    Tag: typeof import('primevue/tag')['default']
     ThemeSelect: typeof import('./src/components/ThemeSelect.vue')['default']
   }
 }

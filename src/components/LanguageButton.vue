@@ -51,11 +51,10 @@ const localeOptions = computed(() => {
 
 <template>
   <div class="flex items-center space-x-4">
-    <Button type="button" class="layout-topbar-action" icon="pi pi-language" @click="localeMenu.toggle($event)"
-      aria-haspopup="true" aria-controls="overlay_menu">
+    <Button icon="pi pi-language" @click="localeMenu.toggle($event)" aria-haspopup="true" aria-controls="overlay_menu">
       <i class="pi pi-language"></i>
       <span v-if="label">{{ $t('lang.title') }}</span>
-    </button>
+    </Button>
     <Menu ref="localeMenu" id="overlay_menu" :model="localeOptions" :popup="true" />
   </div>
 </template>

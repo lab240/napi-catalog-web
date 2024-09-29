@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import CatalogSearch from './components/CatalogSearch.vue';
+import Menubar from 'primevue/menubar';
 import LanguageButton from './components/LanguageButton.vue';
 import LanguageSelect from './components/LanguageSelect.vue';
 import { onMounted, ref, watch } from 'vue'
@@ -10,6 +10,7 @@ import ThemeSelect from './components/ThemeSelect.vue';
 
 const { availableLocales, locale, fallbackLocale } = useI18n()
 const selectedLocale = ref(locale.value)
+
 onMounted(() => {
   if (!availableLocales.includes(selectedLocale.value)) {
     selectedLocale.value = fallbackLocale.value.toString()
@@ -30,18 +31,17 @@ watch(selectedLocale, (newLocale) => {
 
 <template>
   <header>
-    <LanguageButton />
-    <ThemeSelect />
-    <LanguageSelect />
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-      <!-- <CatalogSearch /> -->
-      <CatalogSearchTable />
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
+    <div class="card flex sm:flex-row gap-3 mb-2">
+      <Button as="a" icon="pi pi-home" href="/" />
+      <Button as="a" label="Add" icon="pi pi-plus" class="p-button"
+        href="https://github.com/lab240/napi-catalog/blob/main/CONTRIBUTING.md" target="_blank" />
+      <div class="ml-auto flex gap-3">
+        <ThemeSelect />
+        <LanguageButton />
+      </div>
     </div>
+    <CatalogSearchTable />
+
   </header>
 
   <main>

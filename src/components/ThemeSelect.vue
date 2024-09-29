@@ -1,16 +1,9 @@
 <template>
   <div class="flex items-center space-x-4">
-    <button
-      type="button"
-      :icon="currentIcon"
-      class="layout-topbar-action"
-      @click="themeToggle"
-      aria-label="Themes"
-      aria-haspopup="true"
-      aria-controls="overlay_menu"
-    >
+    <Button :icon="currentIcon" class="layout-topbar-action" @click="themeToggle" aria-label="Themes"
+      aria-haspopup="true" aria-controls="overlay_menu">
       <i :class="currentIcon"></i>
-    </button>
+    </Button>
     <Menu ref="themeMenu" id="overlay_menu" :model="themeItems" :popup="true" />
   </div>
 </template>
