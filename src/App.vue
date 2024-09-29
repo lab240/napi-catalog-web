@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import Menubar from 'primevue/menubar';
 import LanguageButton from './components/LanguageButton.vue';
-import LanguageSelect from './components/LanguageSelect.vue';
 import { onMounted, ref, watch } from 'vue'
 import { RouterView } from 'vue-router'
 import { useI18n } from 'vue-i18n'
