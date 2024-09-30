@@ -8,6 +8,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     Button: typeof import('primevue/button')['default']
+    Card: typeof import('primevue/card')['default']
     CatalogSearchTable: typeof import('./src/components/CatalogSearchTable.vue')['default']
     IconField: typeof import('primevue/iconfield')['default']
     InputIcon: typeof import('primevue/inputicon')['default']
@@ -16,8 +17,10 @@ declare module 'vue' {
     Menu: typeof import('primevue/menu')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    ScrollPanel: typeof import('primevue/scrollpanel')['default']
     SensorDetail: typeof import('./src/components/SensorDetail.vue')['default']
     SensorDetailOld: typeof import('./src/components/SensorDetailOld.vue')['default']
+    Skeleton: typeof import('primevue/skeleton')['default']
     SplitButton: typeof import('primevue/splitbutton')['default']
     ThemeSelect: typeof import('./src/components/ThemeSelect.vue')['default']
   }

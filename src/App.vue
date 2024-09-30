@@ -28,21 +28,23 @@ watch(selectedLocale, (newLocale) => {
 </script>
 
 <template>
-  <header>
-    <div class="card flex sm:flex-row gap-3 mb-2">
-      <Button as="a" icon="pi pi-home" href="/" />
-      <Button as="a" label="Add" icon="pi pi-plus" class="p-button"
-        href="https://github.com/lab240/napi-catalog/blob/main/CONTRIBUTING.md" target="_blank" />
-      <div class="ml-auto flex gap-3">
-        <ThemeSelect />
-        <LanguageButton />
+  <div class="min-h-screen sm:flex gap-3 my-3">
+    <header>
+      <div class="card flex sm:flex-row gap-3 mb-2">
+        <Button as="router-link" icon="pi pi-home" to="/" />
+        <Button as="a" :label="$t('header.add')" icon="pi pi-plus" class="p-button"
+          href="https://github.com/lab240/napi-catalog/blob/main/CONTRIBUTING.md" target="_blank" />
+        <div class="ml-auto flex gap-3">
+          <ThemeSelect />
+          <LanguageButton />
+        </div>
       </div>
-    </div>
-    <CatalogSearchTable />
+      <CatalogSearchTable />
 
-  </header>
+    </header>
 
-  <main>
-    <RouterView />
-  </main>
+    <main>
+      <RouterView />
+    </main>
+  </div>
 </template>

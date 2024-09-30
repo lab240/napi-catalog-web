@@ -1,54 +1,67 @@
 <template>
-    <div class="card">
-        <DataTable v-model:selection="selectedSensor" :rows="10" :rowsPerPageOptions="[5, 10, 20, 50]"
-            selectionMode="single" v-model:filters="filters" :value="sensors" paginator showGridlines dataKey="model"
-            filterDisplay="menu" :loading="loading" :globalFilterFields="['brand', 'model', 'tags']"
-            @row-click="onRowClick" stripedRows>
-            <template #header>
-                <div class="flex justify-between">
-                    <Button type="button" icon="pi pi-filter-slash" label="Clear" outlined @click="clearFilter()" />
-                    <IconField>
-                        <InputIcon>
-                            <i class="pi pi-search" />
-                        </InputIcon>
-                        <InputText v-model="filters['global'].value" placeholder="Keyword Search" />
-                    </IconField>
-                </div>
-            </template>
-            <template #empty> No sensors found. </template>
-            <template #loading> Loading sensors data. Please wait. </template>
-            <Column field="brand" header="Brand" style="min-width: 12rem">
-                <template #body="{ data }">
-                    {{ data.brand }}
-                </template>
-                <template #filter="{ filterModel }">
-                    <InputText v-model="filterModel.value" type="text" placeholder="Search by brand" />
-                </template>
-            </Column>
-            <Column field="model" header="Model" style="min-width: 12rem">
-                <template #body="{ data }">
-                    {{ data.model }}
-                </template>
-                <template #filter="{ filterModel }">
-                    <InputText v-model="filterModel.value" type="text" placeholder="Search by model" />
-                </template>
-            </Column>
-            <Column field="tags" header="Tags" style="min-width: 12rem">
-                <template #body="{ data }">
-                    <div class="flex flex-wrap gap-2">
-                        <Tag v-for="tag in data.tags" :key="tag" :value="tag" :severity="setTagColor(tag)" />
+    <Card class="mt-3">
+        <template #content>
+            <DataTable v-model:selection="selectedSensor" :rows="10" :rowsPerPageOptions="[5, 10, 20, 50]"
+                selectionMode="single" v-model:filters="filters" :value="sensors" showGridlines dataKey="model"
+                filterDisplay="menu" :loading="loading" :globalFilterFields="['brand', 'model', 'tags']"
+                @row-click="onRowClick" paginator stripedRows>
+                <template #header>
+                    <div class="flex flex-col sm:flex-row gap-2 justify-between">
+                        <Button type="button" icon="pi pi-filter-slash" :label="$t('catalog.table.clear')" outlined
+                            @click="clearFilter()" />
+                        <IconField>
+                            <InputIcon>
+                                <i class="pi pi-search" />
+                            </InputIcon>
+                            <InputText v-model="filters['global'].value" :placeholder="$t('catalog.table.search')" />
+                        </IconField>
                     </div>
                 </template>
-                <template #filter="{ filterModel }">
-                    <Select v-model="filterModel.value" :options="tags" placeholder="Select One" filter showClear>
-                        <template #option="slotProps">
-                            <Tag :value="slotProps.option" :severity="setTagColor(slotProps.option)" />
-                        </template>
-                    </Select>
+                <template #empty>
+                    <p class="mt-3">{{ $t('catalog.table.empty') }}</p>
+                    <Button as="a" :label="$t('header.add')" icon="pi pi-plus" class="p-button mt-3"
+                        href="https://github.com/lab240/napi-catalog/blob/main/CONTRIBUTING.md" target="_blank"
+                        size="small" />
                 </template>
-            </Column>
-        </DataTable>
-    </div>
+                <template #loading>
+                    <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+                </template>
+                <Column field="brand" :header="$t('catalog.column.brand.header')" style="min-width: 12rem">
+                    <template #body="{ data }">
+                        {{ data.brand }}
+                    </template>
+                    <template #filter="{ filterModel }">
+                        <InputText v-model="filterModel.value" type="text"
+                            :placeholder="$t('catalog.column.brand.search')" />
+                    </template>
+                </Column>
+                <Column field="model" :header="$t('catalog.column.model.header')" style="min-width: 12rem">
+                    <template #body="{ data }">
+                        {{ data.model }}
+                    </template>
+                    <template #filter="{ filterModel }">
+                        <InputText v-model="filterModel.value" type="text"
+                            :placeholder="$t('catalog.column.model.search')" />
+                    </template>
+                </Column>
+                <Column field="tags" :header="$t('catalog.column.tags.header')" style="min-width: 12rem">
+                    <template #body="{ data }">
+                        <div class="flex flex-wrap gap-2">
+                            <Tag v-for="tag in data.tags" :key="tag" :value="tag" :severity="setTagColor(tag)" />
+                        </div>
+                    </template>
+                    <template #filter="{ filterModel }">
+                        <Select v-model="filterModel.value" :options="tags"
+                            :placeholder="$t('catalog.column.tags.search')" filter showClear>
+                            <template #option="slotProps">
+                                <Tag :value="slotProps.option" :severity="setTagColor(slotProps.option)" />
+                            </template>
+                        </Select>
+                    </template>
+                </Column>
+            </DataTable>
+        </template>
+    </Card>
 </template>
 
 <script setup>

@@ -5,9 +5,31 @@
     }
   },
   "catalog": {
+    "column": {
+      "brand": {
+        "header": "Manufacturer",
+        "search": "Search by brand"
+      },
+      "model": {
+        "header": "Model",
+        "search": "Search by model"
+      },
+      "tags": {
+        "header": "Tags",
+        "search": "Select a tag"
+      }
+    },
     "header": {
       "title": "Catalog search"
+    },
+    "table": {
+      "clear": "Clear",
+      "empty": "No sensors found...",
+      "search": "Keyword Search"
     }
+  },
+  "header": {
+    "add": "Add"
   },
   "lang": {
     "en": "English",
@@ -17,10 +39,45 @@
     "ru": "Russian",
     "title": "Language"
   },
+  "sensor": {
+    "brand": {
+      "detail": "About the manufacturer",
+      "label": "Brand"
+    },
+    "description": {
+      "label": "Description"
+    },
+    "documentation": "Documentation",
+    "model": {
+      "label": "Model"
+    },
+    "notFound": "Oops!",
+    "notFoundMessage": "No data available. \nData may be in the process of being filled out",
+    "readme": "Readme",
+    "tables": {
+      "header": {
+        "download": "Download",
+        "file": "File name",
+        "version": "Version",
+        "view": "View"
+      }
+    },
+    "tags": {
+      "label": "Tags"
+    },
+    "url": "Product URL",
+    "website": {
+      "label": "Website"
+    }
+  },
   "theme": {
     "dark": "Dark",
     "light": "Light",
     "subtitle": "Theme",
     "system": "System"
+  },
+  "welcome": {
+    "description": "This is a catalog of ready-made configurations of popular sensors. \nChoose what you need, add this configuration to NaPi and simply activate it to collect data, yes, it’s that simple!",
+    "header": "Welcome"
   }
 }
