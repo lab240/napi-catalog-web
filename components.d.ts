@@ -7,18 +7,30 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    Accordion: typeof import('primevue/accordion')['default']
+    AccordionContent: typeof import('primevue/accordioncontent')['default']
+    AccordionHeader: typeof import('primevue/accordionheader')['default']
+    AccordionPanel: typeof import('primevue/accordionpanel')['default']
     Button: typeof import('primevue/button')['default']
+    Card: typeof import('primevue/card')['default']
+    CatalogSearch: typeof import('./src/components/CatalogSearch.vue')['default']
     CatalogSearchTable: typeof import('./src/components/CatalogSearchTable.vue')['default']
+    Column: typeof import('primevue/column')['default']
+    DataTable: typeof import('primevue/datatable')['default']
+    DeviceInformation: typeof import('./src/components/DeviceInformation.vue')['default']
     IconField: typeof import('primevue/iconfield')['default']
+    Image: typeof import('primevue/image')['default']
     InputIcon: typeof import('primevue/inputicon')['default']
     InputText: typeof import('primevue/inputtext')['default']
     LanguageButton: typeof import('./src/components/LanguageButton.vue')['default']
+    LanguageSelect: typeof import('./src/components/LanguageSelect.vue')['default']
     Menu: typeof import('primevue/menu')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Select: typeof import('primevue/select')['default']
     SensorDetail: typeof import('./src/components/SensorDetail.vue')['default']
-    SensorDetailOld: typeof import('./src/components/SensorDetailOld.vue')['default']
-    SplitButton: typeof import('primevue/splitbutton')['default']
+    Tag: typeof import('primevue/tag')['default']
     ThemeSelect: typeof import('./src/components/ThemeSelect.vue')['default']
+    Toolbar: typeof import('primevue/toolbar')['default']
   }
 }
