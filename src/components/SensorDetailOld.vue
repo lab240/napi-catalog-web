@@ -25,10 +25,11 @@
             <div class="flex flex-wrap gap-2">
                 <Tag v-for="tag in sensor.tags" :key="tag" :value="tag" :severity="setTagColor(tag)" />
             </div>
-            <Divider />
             <div v-if="sensor.files" class="mt-4">
                 <div v-for="(file, key) in sensor.files" :key="key" class="mb-4">
-                    <p class="font-semibold capitalize">{{ key }}:</p>
+                    <Divider align="left" type="solid">
+                        <b>{{ key }}:</b>
+                    </Divider>
                     <DataTable :value="file.files" sortField="version" :sortOrder="-1" scrollable scrollHeight="200px"
                         selectionMode="single" stripedRows removableSort>
                         <Column field="name" header="File" sortable></Column>
@@ -38,6 +39,12 @@
                                 <Button icon='pi pi-download' class='p-button' :href='slotProps.data.url'
                                     target='_blank' @click="downloadFile(slotProps.data.url, slotProps.data.name)"
                                     raised />
+                            </template>
+                        </Column>
+                        <Column field="url" header="View">
+                            <template #body="slotProps">
+                                <Button as="a" icon='pi pi-eye' class='p-button-info' :href='slotProps.data.url'
+                                    target='_blank' raised />
                             </template>
                         </Column>
                     </DataTable>

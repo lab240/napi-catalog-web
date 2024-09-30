@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import SensorDetail from '@/components/SensorDetail.vue'
+import SensorDetailOld from '@/components/SensorDetailOld.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -12,7 +12,7 @@ const router = createRouter({
     },
     {
       path: '/sensor/:model',
-      component: SensorDetail,
+      component: SensorDetailOld,
       props: true
     }
   ]
