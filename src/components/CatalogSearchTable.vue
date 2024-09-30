@@ -4,7 +4,7 @@
             <DataTable v-model:selection="selectedSensor" :rows="10" :rowsPerPageOptions="[5, 10, 20, 50]"
                 selectionMode="single" v-model:filters="filters" :value="sensors" showGridlines dataKey="model"
                 filterDisplay="menu" :loading="loading" :globalFilterFields="['brand', 'model', 'tags']"
-                @row-click="onRowClick" paginator stripedRows>
+                @row-click="onRowClick" stateStorage="local" stateKey="dt-state" paginator stripedRows removableSort>
                 <template #header>
                     <div class="flex flex-col sm:flex-row gap-2 justify-between">
                         <Button type="button" icon="pi pi-filter-slash" :label="$t('catalog.table.clear')" outlined
@@ -26,7 +26,7 @@
                 <template #loading>
                     <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
                 </template>
-                <Column field="brand" :header="$t('catalog.column.brand.header')" style="min-width: 12rem">
+                <Column field="brand" :header="$t('catalog.column.brand.header')" style="min-width: 12rem" sortable>
                     <template #body="{ data }">
                         {{ data.brand }}
                     </template>
@@ -35,7 +35,7 @@
                             :placeholder="$t('catalog.column.brand.search')" />
                     </template>
                 </Column>
-                <Column field="model" :header="$t('catalog.column.model.header')" style="min-width: 12rem">
+                <Column field="model" :header="$t('catalog.column.model.header')" style="min-width: 12rem" sortable>
                     <template #body="{ data }">
                         {{ data.model }}
                     </template>
