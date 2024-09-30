@@ -1,9 +1,9 @@
 <template>
-    <div class="card">
-        <DataTable v-model:selection="selectedSensor" :rows="10" :rowsPerPageOptions="[5, 10, 20, 50]"
-            selectionMode="single" v-model:filters="filters" :value="sensors" paginator showGridlines dataKey="model"
+    <div class="flex relative justify-center items-center overflow-hidden">
+        <DataTable class="w-full" rowGroupMode="rowspan" groupRowsBy="brand" selectionMode="single" :value="catalog"
+            paginator showGridlines :rows="10" :rows-per-page-options="[5, 10, 20, 50]" dataKey="model.name"
             filterDisplay="menu" :loading="loading" :globalFilterFields="['brand', 'model', 'tags']"
-            @row-click="onRowClick" stripedRows>
+            @row-click="onRowClick">
             <template #header>
                 <div class="flex justify-between">
                     <Button type="button" icon="pi pi-filter-slash" label="Clear" outlined @click="clearFilter()" />
@@ -17,26 +17,27 @@
             </template>
             <template #empty> No sensors found. </template>
             <template #loading> Loading sensors data. Please wait. </template>
-            <Column field="brand" header="Brand" style="min-width: 12rem">
+            <Column field="brand" header="Brand">
                 <template #body="{ data }">
-                    {{ data.brand }}
+                    {{ data.brand.toUpperCase() }}
                 </template>
                 <template #filter="{ filterModel }">
                     <InputText v-model="filterModel.value" type="text" placeholder="Search by brand" />
                 </template>
             </Column>
-            <Column field="model" header="Model" style="min-width: 12rem">
+            <Column field="model" header="Model">
                 <template #body="{ data }">
-                    {{ data.model }}
+                    {{ data.model.name }}
                 </template>
                 <template #filter="{ filterModel }">
                     <InputText v-model="filterModel.value" type="text" placeholder="Search by model" />
                 </template>
             </Column>
-            <Column field="tags" header="Tags" style="min-width: 12rem">
+            <Column field="tags" header="Tags">
                 <template #body="{ data }">
                     <div class="flex flex-wrap gap-2">
-                        <Tag v-for="tag in data.tags" :key="tag" :value="tag" :severity="setTagColor(tag)" />
+                        <Tag v-for="tag in data.tags" :key="tag" :value="tag.toUpperCase()"
+                            :severity="setTagColor(tag)" />
                     </div>
                 </template>
                 <template #filter="{ filterModel }">
@@ -48,34 +49,37 @@
                 </template>
             </Column>
         </DataTable>
+        <DeviceInformation :device="selectedDevice" />
     </div>
 </template>
 
+
 <script setup>
 import { ref, onMounted } from 'vue';
-import { useRouter } from 'vue-router';
-import axios from 'axios';
 import { FilterMatchMode, FilterOperator } from '@primevue/core/api';
-import Button from 'primevue/button';
-import InputText from 'primevue/inputtext';
-import Tag from 'primevue/tag';
-import DataTable from 'primevue/datatable';
-import Column from 'primevue/column';
-import Select from 'primevue/select';
+import axios from 'axios';
+import DeviceInformation from './DeviceInformation.vue';
 
-const sensors = ref([]);
 const filters = ref();
 const tags = ref([]);
-const loading = ref(true);
-const router = useRouter();
-const selectedSensor = ref();
+const loading = ref(false);
+const selectedDevice = ref();
+const catalog = ref([]);
 
 onMounted(async () => {
-    const response = await axios.get('https://raw.githubusercontent.com/lab240/napi-catalog/refs/heads/main/catalog.json');
-    const catalog = response.data;
-    sensors.value = getSensors(catalog);
-    tags.value = getAllTags(sensors.value);
-    loading.value = false;
+    loading.value = true;
+
+    try {
+        const { data } = await axios.get('https://raw.githubusercontent.com/lab240/napi-catalog/refs/heads/main/catalog.json');
+
+        catalog.value = transformData(data);
+        tags.value = getAllTags(catalog.value);
+
+    } catch (error) {
+        throw new Error(error.message);
+    } finally {
+        loading.value = false;
+    }
 });
 
 const initFilters = () => {
@@ -91,24 +95,6 @@ initFilters();
 
 const clearFilter = () => {
     initFilters();
-};
-
-const getSensors = (data) => {
-    const sensorsArray = [];
-    for (const brand in data) {
-        if (data[brand].meta) {
-            for (const model in data[brand]) {
-                if (data[brand][model].meta) {
-                    sensorsArray.push({
-                        brand: data[brand].meta.vendor || brand,
-                        model: data[brand][model].meta.model,
-                        tags: data[brand][model].meta.tags || []
-                    });
-                }
-            }
-        }
-    }
-    return sensorsArray;
 };
 
 const getAllTags = (sensors) => {
@@ -130,10 +116,34 @@ const setTagColor = (tag) => {
         'modbustcp': 'warn'
     };
 
-    return tagColors[tag.toLowerCase()] || 'secondary';
+    return tagColors[tag] || 'secondary';
 };
 
 const onRowClick = (event) => {
-    router.push({ path: `/sensor/${event.data.model}` });
+    selectedDevice.value = event.data;
+};
+
+const transformData = (input) => {
+    const result = [];
+    Object.keys(input).forEach(brand => {
+        Object.keys(input[brand]).forEach(model => {
+            if (model !== 'meta') {
+                const modelData = input[brand][model];
+
+                let newModel = {
+                    brand: brand,
+                    model: { name: model.toUpperCase() },
+                    dashboard: modelData.dashboard || {},
+                    meta: modelData.meta || {},
+                    snmp: modelData.snmp || {},
+                    tags: modelData.meta.tags || []
+                };
+
+                result.push(newModel);
+            }
+        });
+    });
+
+    return result;
 };
 </script>
