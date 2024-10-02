@@ -15,6 +15,7 @@ declare module 'vue' {
     InputText: typeof import('primevue/inputtext')['default']
     LanguageButton: typeof import('./src/components/LanguageButton.vue')['default']
     Menu: typeof import('primevue/menu')['default']
+    ProgressSpinner: typeof import('primevue/progressspinner')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     ScrollPanel: typeof import('primevue/scrollpanel')['default']

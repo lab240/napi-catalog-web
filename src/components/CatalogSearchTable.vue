@@ -24,7 +24,8 @@
                         size="small" />
                 </template>
                 <template #loading>
-                    <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+                    <ProgressSpinner style="width: 50px; height: 50px" strokeWidth="8" fill="transparent"
+                        animationDuration=".5s" aria-label="Loading" />
                 </template>
                 <Column field="brand" :header="$t('catalog.column.brand.header')" style="min-width: 12rem" sortable>
                     <template #body="{ data }">
