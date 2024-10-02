@@ -30,17 +30,23 @@ watch(selectedLocale, (newLocale) => {
 <template>
   <div class="min-h-screen sm:flex gap-3 my-3">
     <header>
-      <div class="card flex sm:flex-row gap-3 mb-2">
-        <Button as="router-link" icon="pi pi-home" to="/" />
-        <Button as="a" :label="$t('header.add')" icon="pi pi-plus" class="p-button"
-          href="https://github.com/lab240/napi-catalog/blob/main/CONTRIBUTING.md" target="_blank" />
-        <div class="ml-auto flex gap-3">
-          <ThemeSelect />
-          <LanguageButton />
-        </div>
-      </div>
+      <Menubar>
+        <template #start>
+          <div class="ml-auto flex gap-3">
+            <Button as="router-link" icon="pi pi-home" to="/" />
+            <Button as="a" :label="$t('header.add')" icon="pi pi-plus" class="p-button"
+              href="https://github.com/lab240/napi-catalog/blob/main/CONTRIBUTING.md" target="_blank"
+              v-tooltip.bottom="{ value: $t('header.addTooltip'), showDelay: 1000, hideDelay: 300 }" />
+          </div>
+        </template>
+        <template #end>
+          <div class="ml-auto flex gap-3">
+            <ThemeSelect />
+            <LanguageButton />
+          </div>
+        </template>
+      </Menubar>
       <CatalogSearchTable />
-
     </header>
 
     <main>

@@ -29,7 +29,8 @@
     }
   },
   "header": {
-    "add": "Add"
+    "add": "Add",
+    "addTooltip": "Add sensor to catalog"
   },
   "lang": {
     "en": "English",

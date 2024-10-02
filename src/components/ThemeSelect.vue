@@ -1,9 +1,8 @@
 <template>
   <div class="flex items-center space-x-4">
-    <Button :icon="currentIcon" class="layout-topbar-action" @click="themeToggle" aria-label="Themes"
-      aria-haspopup="true" aria-controls="overlay_menu">
-      <i :class="currentIcon"></i>
-    </Button>
+    <Button :icon="currentIcon" @click="themeToggle" aria-label="Themes" aria-haspopup="true"
+      aria-controls="overlay_menu"
+      v-tooltip.bottom="{ value: $t('theme.subtitle'), showDelay: 1000, hideDelay: 300 }" />
     <Menu ref="themeMenu" id="overlay_menu" :model="themeItems" :popup="true" />
   </div>
 </template>
@@ -12,6 +11,7 @@
 import { setLightMode, setDarkMode, setOSPreference, applyTheme } from '@/plugins/theme'
 import { computed, ref, watchEffect } from 'vue'
 import { useI18n } from 'vue-i18n'
+import Button from 'primevue/button'
 const { t } = useI18n()
 
 const themeMenu = ref()
