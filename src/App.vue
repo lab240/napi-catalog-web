@@ -38,7 +38,7 @@ watch(selectedLocale, (newLocale) => {
             </router-link>
             <Button as="a" :label="$t('header.add')" icon="pi pi-plus" class="p-button"
               href="https://github.com/lab240/napi-catalog/blob/main/CONTRIBUTING.md" target="_blank" size="small"
-              v-tooltip.bottom="{ value: $t('header.addTooltip'), showDelay: 1000, hideDelay: 300 }" />
+              v-tooltip.bottom="{ value: $t('header.addTooltip'), showDelay: 1000, hideDelay: 300 }" outlined plain />
           </div>
         </template>
         <template #end>
