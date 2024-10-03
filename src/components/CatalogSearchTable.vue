@@ -7,14 +7,15 @@
                 @row-click="onRowClick" stateStorage="local" stateKey="dt-state" paginator stripedRows removableSort>
                 <template #header>
                     <div class="flex flex-col sm:flex-row gap-2 justify-between">
-                        <Button type="button" icon="pi pi-filter-slash" :label="$t('catalog.table.clear')" outlined
-                            @click="clearFilter()" />
                         <IconField>
                             <InputIcon>
                                 <i class="pi pi-search" />
                             </InputIcon>
-                            <InputText v-model="filters['global'].value" :placeholder="$t('catalog.table.search')" />
+                            <InputText v-model="filters['global'].value" :placeholder="$t('catalog.table.search')"
+                                size="small" />
                         </IconField>
+                        <Button type="button" icon="pi pi-filter-slash" :label="$t('catalog.table.clear')" size="small"
+                            @click="clearFilter()" plain text />
                     </div>
                 </template>
                 <template #empty>
