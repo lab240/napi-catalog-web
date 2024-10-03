@@ -52,7 +52,7 @@ const localeOptions = computed(() => {
 <template>
   <div class="flex items-center space-x-4">
     <Button icon="pi pi-language" @click="localeMenu.toggle($event)" aria-haspopup="true" aria-controls="overlay_menu"
-      v-tooltip.bottom="{ value: $t('lang.title'), showDelay: 1000, hideDelay: 300 }" />
+      v-tooltip.bottom="{ value: $t('lang.title'), showDelay: 1000, hideDelay: 300 }" outlined text plain />
     <Menu ref="localeMenu" id="overlay_menu" :model="localeOptions" :popup="true" />
   </div>
 </template>

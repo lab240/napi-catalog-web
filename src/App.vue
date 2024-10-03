@@ -33,9 +33,11 @@ watch(selectedLocale, (newLocale) => {
       <Menubar>
         <template #start>
           <div class="ml-auto flex gap-3">
-            <Button as="router-link" icon="pi pi-home" to="/" />
+            <router-link to="/">
+              <Image src="/logo.svg" image-class="mt-1" alt="NAPI Catalog" width="100" height="60" />
+            </router-link>
             <Button as="a" :label="$t('header.add')" icon="pi pi-plus" class="p-button"
-              href="https://github.com/lab240/napi-catalog/blob/main/CONTRIBUTING.md" target="_blank"
+              href="https://github.com/lab240/napi-catalog/blob/main/CONTRIBUTING.md" target="_blank" size="small"
               v-tooltip.bottom="{ value: $t('header.addTooltip'), showDelay: 1000, hideDelay: 300 }" />
           </div>
         </template>
@@ -43,6 +45,8 @@ watch(selectedLocale, (newLocale) => {
           <div class="ml-auto flex gap-3">
             <ThemeSelect />
             <LanguageButton />
+            <Button as="a" icon="pi pi-github" href="https://github.com/lab240/napi-catalog" target="_blank"
+              rel="noopener" outlined text plain />
           </div>
         </template>
       </Menubar>
@@ -52,5 +56,6 @@ watch(selectedLocale, (newLocale) => {
     <main>
       <RouterView />
     </main>
+    <Toast />
   </div>
 </template>

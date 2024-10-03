@@ -7,10 +7,13 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    Badge: typeof import('primevue/badge')['default']
     Button: typeof import('primevue/button')['default']
+    ButtonGroup: typeof import('primevue/buttongroup')['default']
     Card: typeof import('primevue/card')['default']
     CatalogSearchTable: typeof import('./src/components/CatalogSearchTable.vue')['default']
     IconField: typeof import('primevue/iconfield')['default']
+    Image: typeof import('primevue/image')['default']
     InputIcon: typeof import('primevue/inputicon')['default']
     InputText: typeof import('primevue/inputtext')['default']
     LanguageButton: typeof import('./src/components/LanguageButton.vue')['default']
@@ -27,8 +30,10 @@ declare module 'vue' {
     Splitter: typeof import('primevue/splitter')['default']
     SplitterPanel: typeof import('primevue/splitterpanel')['default']
     ThemeSelect: typeof import('./src/components/ThemeSelect.vue')['default']
+    Toast: typeof import('primevue/toast')['default']
   }
   export interface ComponentCustomProperties {
+    Ripple: typeof import('primevue/ripple')['default']
     Tooltip: typeof import('primevue/tooltip')['default']
   }
 }

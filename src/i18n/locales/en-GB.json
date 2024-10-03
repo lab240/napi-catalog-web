@@ -77,6 +77,14 @@
     "subtitle": "Theme",
     "system": "System"
   },
+  "toast": {
+    "download": {
+      "detail": "You downloaded: ",
+      "error": "Error",
+      "errorDetail": "Error downloading the file",
+      "summary": "Downloading"
+    }
+  },
   "welcome": {
     "description": "This is a catalog of ready-made configurations of popular sensors. \nChoose what you need, add this configuration to NaPi and simply activate it to collect data, yes, it’s that simple!",
     "header": "Welcome"

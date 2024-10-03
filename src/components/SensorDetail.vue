@@ -98,6 +98,7 @@
 import { ref, onMounted, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import axios from 'axios';
+import { useI18n } from 'vue-i18n'
 import Button from 'primevue/button';
 import Image from 'primevue/image';
 import Divider from 'primevue/divider';
@@ -105,6 +106,10 @@ import Tag from 'primevue/tag';
 import Dialog from 'primevue/dialog';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
+import { useToast } from 'primevue/usetoast';
+
+const { t } = useI18n()
+const toast = useToast();
 
 const route = useRoute();
 const sensor = ref({});
@@ -186,7 +191,9 @@ const downloadFile = async (url, fileName) => {
         link.click()
         document.body.removeChild(link)
         URL.revokeObjectURL(link.href)
+        toast.add({ severity: 'info', summary: t('toast.download.summary'), detail: t('toast.download.detail') + fileName, life: 5000 });
     } catch (error) {
+        toast.add({ severity: 'error', summary: t('toast.download.error'), detail: t('toast.download.errorDetail'), life: 5000 });
         console.error('Error downloading the file', error)
     }
 }
