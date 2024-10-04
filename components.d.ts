@@ -7,33 +7,23 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    Badge: typeof import('primevue/badge')['default']
     Button: typeof import('primevue/button')['default']
-    ButtonGroup: typeof import('primevue/buttongroup')['default']
     Card: typeof import('primevue/card')['default']
     CatalogSearchTable: typeof import('./src/components/CatalogSearchTable.vue')['default']
     IconField: typeof import('primevue/iconfield')['default']
     Image: typeof import('primevue/image')['default']
     InputIcon: typeof import('primevue/inputicon')['default']
-    InputText: typeof import('primevue/inputtext')['default']
     LanguageButton: typeof import('./src/components/LanguageButton.vue')['default']
     Menu: typeof import('primevue/menu')['default']
     Menubar: typeof import('primevue/menubar')['default']
     ProgressSpinner: typeof import('primevue/progressspinner')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    ScrollPanel: typeof import('primevue/scrollpanel')['default']
     SensorDetail: typeof import('./src/components/SensorDetail.vue')['default']
-    SensorDetailOld: typeof import('./src/components/SensorDetailOld.vue')['default']
-    Skeleton: typeof import('primevue/skeleton')['default']
-    SplitButton: typeof import('primevue/splitbutton')['default']
-    Splitter: typeof import('primevue/splitter')['default']
-    SplitterPanel: typeof import('primevue/splitterpanel')['default']
     ThemeSelect: typeof import('./src/components/ThemeSelect.vue')['default']
     Toast: typeof import('primevue/toast')['default']
   }
   export interface ComponentCustomProperties {
-    Ripple: typeof import('primevue/ripple')['default']
     Tooltip: typeof import('primevue/tooltip')['default']
   }
 }

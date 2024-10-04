@@ -14,76 +14,74 @@
             </div>
         </template>
         <template #content>
-            <ScrollPanel style="height: 95vh">
-                <Divider />
-                <p class="font-semibold my-2">{{ $t('sensor.brand.label') }}: <span class="font-normal">{{ sensor.brand
-                        }}</span></p>
-                <p class="font-semibold my-2">{{ $t('sensor.model.label') }}: <span class="font-normal">{{ sensor.model
-                        }}</span></p>
-                <p class="font-semibold my-2">{{ $t('sensor.description.label') }}: <span class="font-normal">{{
-                    sensor.description }}</span>
-                </p>
-                <Divider />
-                <div class="flex justify-center">
-                    <Image v-if="sensor.image_url" :src="sensor.image_url" alt="Sensor Image" class="mt-4" width="350"
-                        preview />
+            <Divider />
+            <p class="font-semibold my-2">{{ $t('sensor.brand.label') }}: <span class="font-normal">{{ sensor.brand
+                    }}</span></p>
+            <p class="font-semibold my-2">{{ $t('sensor.model.label') }}: <span class="font-normal">{{ sensor.model
+                    }}</span></p>
+            <p class="font-semibold my-2">{{ $t('sensor.description.label') }}: <span class="font-normal">{{
+                sensor.description }}</span>
+            </p>
+            <Divider />
+            <div class="flex justify-center">
+                <Image v-if="sensor.image_url" :src="sensor.image_url" alt="Sensor Image" class="mt-4" width="350"
+                    preview />
+            </div>
+            <Divider align="left" type="solid">
+                <b>{{ $t('sensor.tags.label') }}:</b>
+            </Divider>
+            <div class="flex flex-wrap gap-2">
+                <Tag v-for="tag in sensor.tags" :key="tag" :value="tag" :severity="setTagColor(tag)" />
+            </div>
+            <div v-if="sensor.files" class="mt-4">
+                <div v-for="(file, key) in sensor.files" :key="key" class="mb-4">
+                    <Divider align="left" type="solid">
+                        <b>{{ key }}:</b>
+                    </Divider>
+                    <DataTable :value="file.files" sortField="version" :sortOrder="-1" scrollable scrollHeight="200px"
+                        selectionMode="single" stripedRows removableSort>
+                        <Column field="name" :header="$t('sensor.tables.header.file')" sortable></Column>
+                        <Column v-if="hasVersions(file.files)" field="version"
+                            :header="$t('sensor.tables.header.version')" sortable>
+                        </Column>
+                        <Column field="url" :header="$t('sensor.tables.header.download')">
+                            <template #body="slotProps">
+                                <Button icon='pi pi-download' class='p-button' :href='slotProps.data.url'
+                                    target='_blank' @click="downloadFile(slotProps.data.url, slotProps.data.name)"
+                                    size="small" raised />
+                            </template>
+                        </Column>
+                        <Column field="url" :header="$t('sensor.tables.header.view')">
+                            <template #body="slotProps">
+                                <Button as="a" icon='pi pi-eye' class='p-button-info' :href='slotProps.data.url'
+                                    target='_blank' size="small" raised />
+                            </template>
+                        </Column>
+                    </DataTable>
+                    <Button as="a" v-if="file.meta && file.meta.readme" :label="$t('sensor.readme')" icon="pi pi-book"
+                        class="p-button-secondary mt-2" :href="file.meta.readme" target="_blank" rel="noopener"
+                        size="small" />
                 </div>
-                <Divider align="left" type="solid">
-                    <b>{{ $t('sensor.tags.label') }}:</b>
-                </Divider>
-                <div class="flex flex-wrap gap-2">
-                    <Tag v-for="tag in sensor.tags" :key="tag" :value="tag" :severity="setTagColor(tag)" />
+            </div>
+            <Dialog :header="$t('sensor.brand.detail')" v-model:visible="showBrandDetails" :modal="true"
+                :closable="true">
+                <div v-if="brandDetails">
+                    <Image :src="brandDetails.logo" alt="Brand Logo" class="mb-4" width="250" preview />
+                    <p class="font-semibold">{{ $t('sensor.brand.label') }}: <span class="font-normal">{{
+                        brandDetails.brand
+                    }}</span></p>
+                    <p class="font-semibold">{{ $t('sensor.description.label') }}: <span class="font-normal">{{
+                        brandDetails.description
+                    }}</span>
+                    </p>
+                    <p class="font-semibold">{{ $t('sensor.website.label') }}: <a :href="brandDetails.website"
+                            target="_blank" class="text-primary">{{
+                                brandDetails.website }}</a></p>
                 </div>
-                <div v-if="sensor.files" class="mt-4">
-                    <div v-for="(file, key) in sensor.files" :key="key" class="mb-4">
-                        <Divider align="left" type="solid">
-                            <b>{{ key }}:</b>
-                        </Divider>
-                        <DataTable :value="file.files" sortField="version" :sortOrder="-1" scrollable
-                            scrollHeight="200px" selectionMode="single" stripedRows removableSort>
-                            <Column field="name" :header="$t('sensor.tables.header.file')" sortable></Column>
-                            <Column v-if="hasVersions(file.files)" field="version"
-                                :header="$t('sensor.tables.header.version')" sortable>
-                            </Column>
-                            <Column field="url" :header="$t('sensor.tables.header.download')">
-                                <template #body="slotProps">
-                                    <Button icon='pi pi-download' class='p-button' :href='slotProps.data.url'
-                                        target='_blank' @click="downloadFile(slotProps.data.url, slotProps.data.name)"
-                                        size="small" raised />
-                                </template>
-                            </Column>
-                            <Column field="url" :header="$t('sensor.tables.header.view')">
-                                <template #body="slotProps">
-                                    <Button as="a" icon='pi pi-eye' class='p-button-info' :href='slotProps.data.url'
-                                        target='_blank' size="small" raised />
-                                </template>
-                            </Column>
-                        </DataTable>
-                        <Button as="a" v-if="file.meta && file.meta.readme" :label="$t('sensor.readme')"
-                            icon="pi pi-book" class="p-button-secondary mt-2" :href="file.meta.readme" target="_blank"
-                            rel="noopener" size="small" />
-                    </div>
+                <div v-else>
+                    <p>Loading...</p>
                 </div>
-                <Dialog :header="$t('sensor.brand.detail')" v-model:visible="showBrandDetails" :modal="true"
-                    :closable="true">
-                    <div v-if="brandDetails">
-                        <Image :src="brandDetails.logo" alt="Brand Logo" class="mb-4" width="250" preview />
-                        <p class="font-semibold">{{ $t('sensor.brand.label') }}: <span class="font-normal">{{
-                            brandDetails.brand
-                                }}</span></p>
-                        <p class="font-semibold">{{ $t('sensor.description.label') }}: <span class="font-normal">{{
-                            brandDetails.description
-                                }}</span>
-                        </p>
-                        <p class="font-semibold">{{ $t('sensor.website.label') }}: <a :href="brandDetails.website"
-                                target="_blank" class="text-primary">{{
-                                    brandDetails.website }}</a></p>
-                    </div>
-                    <div v-else>
-                        <p>Loading...</p>
-                    </div>
-                </Dialog>
-            </ScrollPanel>
+            </Dialog>
         </template>
     </Card>
     <Card v-else class="ml-3 mr-3 mb-3">
