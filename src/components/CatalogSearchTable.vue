@@ -121,7 +121,14 @@
       </DataTable>
     </template>
   </Card>
-  <div class="flex justify-center items-center text-xs font-thin mt-2 mb-2">
+  <div
+    class="flex justify-center items-center text-xs font-thin mt-2 mb-2 p-1"
+    style="
+      background: var(--p-card-background);
+      box-shadow: var(--p-card-shadow);
+      border-radius: var(--p-card-border-radius);
+    "
+  >
     {{ $t('footer.project') }}
     <a
       href="https://napilinux.ru/"
