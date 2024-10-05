@@ -26,7 +26,7 @@ jobs:
       - name: Build website
         run: npm run build
       - name: Copy CNAME
-        run: cp CNAME ./dist/
+        run: cp CNAME ./dist/ && cp 404.html ./dist/
 
       # Popular action to deploy to GitHub Pages:
       # Docs: https://github.com/peaceiris/actions-gh-pages#%EF%B8%8F-docusaurus
