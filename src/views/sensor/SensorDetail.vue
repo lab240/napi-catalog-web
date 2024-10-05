@@ -69,10 +69,10 @@
                     <Image :src="brandDetails.logo" alt="Brand Logo" class="mb-4" width="250" preview />
                     <p class="font-semibold">{{ $t('sensor.brand.label') }}: <span class="font-normal">{{
                         brandDetails.brand
-                    }}</span></p>
+                            }}</span></p>
                     <p class="font-semibold">{{ $t('sensor.description.label') }}: <span class="font-normal">{{
                         brandDetails.description
-                    }}</span>
+                            }}</span>
                     </p>
                     <p class="font-semibold">{{ $t('sensor.website.label') }}: <a :href="brandDetails.website"
                             target="_blank" class="text-primary">{{
@@ -114,6 +114,26 @@ const sensor = ref({});
 const showBrandDetails = ref(false);
 const brandDetails = ref(null);
 
+const setMetaTags = (sensorData) => {
+    const metaTags = [
+        { property: 'og:title', content: `${sensorData.brand} ${sensorData.model}` || 'NaPi sensor catalog' },
+        { property: 'og:description', content: sensorData.description || '' },
+        { property: 'og:image', content: sensorData.image_url || 'https://sensor.napilinux.ru/logo.svg' },
+        { property: 'og:url', content: window.location.href },
+        { property: 'og:type', content: 'website' }
+    ];
+
+    metaTags.forEach(tag => {
+        let element = document.querySelector(`meta[property='${tag.property}']`);
+        if (!element) {
+            element = document.createElement('meta');
+            element.setAttribute('property', tag.property);
+            document.head.appendChild(element);
+        }
+        element.setAttribute('content', tag.content);
+    });
+};
+
 const fetchSensorData = async (model) => {
     try {
         const response = await axios.get('https://raw.githubusercontent.com/lab240/napi-catalog/refs/heads/main/catalog.json');
@@ -144,6 +164,7 @@ const fetchSensorData = async (model) => {
                                 return acc;
                             }, {})
                         };
+                        setMetaTags(sensor.value);
                         brandDetails.value = catalog[brand].meta;
                         return;
                     }
