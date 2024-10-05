@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import LanguageButton from './components/LanguageButton.vue';
+import LanguageButton from './components/LanguageButton.vue'
 import { onMounted, ref, watch } from 'vue'
 import { RouterView } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import CatalogSearchTable from './components/CatalogSearchTable.vue';
-import ThemeSelect from './components/ThemeSelect.vue';
+import CatalogSearchTable from './components/CatalogSearchTable.vue'
+import ThemeSelect from './components/ThemeSelect.vue'
 
 const { availableLocales, locale, fallbackLocale } = useI18n()
 const selectedLocale = ref(locale.value)
@@ -34,19 +34,42 @@ watch(selectedLocale, (newLocale) => {
         <template #start>
           <div class="ml-auto flex gap-3">
             <router-link to="/">
-              <Image src="/logo.svg" image-class="mt-1" alt="NAPI Catalog" width="100" height="60" />
+              <Image
+                src="/logo.svg"
+                image-class="mt-1"
+                alt="NAPI Catalog"
+                width="100"
+                height="60"
+              />
             </router-link>
-            <Button as="a" :label="$t('header.add')" icon="pi pi-plus" class="p-button"
-              href="https://github.com/lab240/napi-catalog/blob/main/CONTRIBUTING.md" target="_blank" size="small"
-              v-tooltip.bottom="{ value: $t('header.addTooltip'), showDelay: 1000, hideDelay: 300 }" outlined plain />
+            <Button
+              as="a"
+              :label="$t('header.add')"
+              icon="pi pi-plus"
+              class="p-button"
+              href="https://github.com/lab240/napi-catalog/blob/main/CONTRIBUTING.md"
+              target="_blank"
+              size="small"
+              v-tooltip.bottom="{ value: $t('header.addTooltip'), showDelay: 1000, hideDelay: 300 }"
+              outlined
+              plain
+            />
           </div>
         </template>
         <template #end>
           <div class="ml-auto flex gap-3">
             <ThemeSelect />
             <LanguageButton />
-            <Button as="a" icon="pi pi-github" href="https://github.com/lab240/napi-catalog" target="_blank"
-              rel="noopener" outlined text plain />
+            <Button
+              as="a"
+              icon="pi pi-github"
+              href="https://github.com/lab240/napi-catalog"
+              target="_blank"
+              rel="noopener"
+              outlined
+              text
+              plain
+            />
           </div>
         </template>
       </Menubar>

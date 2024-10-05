@@ -1,8 +1,16 @@
 <template>
   <div class="flex items-center space-x-4">
-    <Button :icon="currentIcon" @click="themeToggle" aria-label="Themes" aria-haspopup="true"
-      aria-controls="overlay_menu" v-tooltip.bottom="{ value: $t('theme.subtitle'), showDelay: 1000, hideDelay: 300 }"
-      outlined text plain />
+    <Button
+      :icon="currentIcon"
+      @click="themeToggle"
+      aria-label="Themes"
+      aria-haspopup="true"
+      aria-controls="overlay_menu"
+      v-tooltip.bottom="{ value: $t('theme.subtitle'), showDelay: 1000, hideDelay: 300 }"
+      outlined
+      text
+      plain
+    />
     <Menu ref="themeMenu" id="overlay_menu" :model="themeItems" :popup="true" />
   </div>
 </template>
