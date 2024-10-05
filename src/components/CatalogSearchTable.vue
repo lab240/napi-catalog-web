@@ -64,10 +64,14 @@
             </DataTable>
         </template>
     </Card>
+    <div class="flex justify-center items-center text-xs font-thin mt-2 mb-2">
+        {{ $t('footer.project') }} <a href="https://napilinux.ru/" class="text-blue-500 hover:underline" target="_blank"
+            rel="noopener noreferrer">&nbsp;NaPi&nbsp;</a> © {{ yearRange }}
+    </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
 import { FilterMatchMode, FilterOperator } from '@primevue/core/api';
@@ -151,4 +155,10 @@ const setTagColor = (tag) => {
 const onRowClick = (event) => {
     router.push({ path: `/sensor/${event.data.model}` });
 };
+
+const yearRange = computed(() => {
+    const startYear = 2023;
+    const currentYear = new Date().getFullYear();
+    return currentYear > startYear ? `${startYear} - ${currentYear}` : `${startYear}`;
+});
 </script>

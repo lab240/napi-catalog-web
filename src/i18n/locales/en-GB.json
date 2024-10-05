@@ -28,6 +28,9 @@
       "search": "Keyword Search"
     }
   },
+  "footer": {
+    "project": "Project by"
+  },
   "header": {
     "add": "Add",
     "addTooltip": "Add sensor to catalog"
