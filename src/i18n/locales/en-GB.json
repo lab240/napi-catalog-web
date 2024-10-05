@@ -33,7 +33,11 @@
   },
   "header": {
     "add": "Add",
-    "addTooltip": "Add sensor to catalog"
+    "addTooltip": "Add sensor to catalog",
+    "links": {
+      "catalog": "Catalog",
+      "tooltip": "External links"
+    }
   },
   "lang": {
     "en": "English",

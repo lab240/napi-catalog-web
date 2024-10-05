@@ -23,6 +23,7 @@ declare module 'vue' {
     Toast: typeof import('primevue/toast')['default']
   }
   export interface ComponentCustomProperties {
+    Ripple: typeof import('primevue/ripple')['default']
     Tooltip: typeof import('primevue/tooltip')['default']
   }
 }

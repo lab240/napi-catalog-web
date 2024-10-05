@@ -6,8 +6,29 @@ import { useI18n } from 'vue-i18n'
 import CatalogSearchTable from './components/CatalogSearchTable.vue'
 import ThemeSelect from './components/ThemeSelect.vue'
 
-const { availableLocales, locale, fallbackLocale } = useI18n()
+const { availableLocales, locale, fallbackLocale, t } = useI18n()
 const selectedLocale = ref(locale.value)
+const externalLinkMenu = ref()
+const externalLink = [
+  {
+    label: t('header.links.catalog'),
+    icon: 'pi pi-github',
+    url: 'https://github.com/lab240/napi-catalog',
+    target: '_blank'
+  },
+  {
+    label: 'napi-linux',
+    icon: 'pi pi-link',
+    url: 'https://napilinux.ru/',
+    target: '_blank'
+  },
+  {
+    label: 'napi-world',
+    icon: 'pi pi-link',
+    url: 'https://napiworld.ru/',
+    target: '_blank'
+  }
+]
 
 onMounted(() => {
   if (!availableLocales.includes(selectedLocale.value)) {
@@ -61,15 +82,33 @@ watch(selectedLocale, (newLocale) => {
             <ThemeSelect />
             <LanguageButton />
             <Button
-              as="a"
-              icon="pi pi-github"
-              href="https://github.com/lab240/napi-catalog"
-              target="_blank"
-              rel="noopener"
+              icon="pi pi-ellipsis-v"
+              @click="externalLinkMenu.toggle($event)"
+              aria-haspopup="true"
+              aria-controls="overlay_menu"
+              v-tooltip.bottom="{
+                value: $t('header.links.tooltip'),
+                showDelay: 1000,
+                hideDelay: 300
+              }"
               outlined
               text
               plain
             />
+            <Menu ref="externalLinkMenu" id="overlay_menu" :model="externalLink" :popup="true">
+              <template #item="{ item, props }">
+                <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
+                  <a v-ripple :href="href" v-bind="props.action" @click="navigate">
+                    <span :class="item.icon" />
+                    <span class="ml-2">{{ item.label }}</span>
+                  </a>
+                </router-link>
+                <a v-else v-ripple :href="item.url" :target="item.target" v-bind="props.action">
+                  <span :class="item.icon" />
+                  <span class="ml-2">{{ item.label }}</span>
+                </a>
+              </template>
+            </Menu>
           </div>
         </template>
       </Menubar>
