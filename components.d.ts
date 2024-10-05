@@ -19,7 +19,6 @@ declare module 'vue' {
     ProgressSpinner: typeof import('primevue/progressspinner')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    SensorDetail: typeof import('./src/components/SensorDetail.vue')['default']
     ThemeSelect: typeof import('./src/components/ThemeSelect.vue')['default']
     Toast: typeof import('primevue/toast')['default']
   }
