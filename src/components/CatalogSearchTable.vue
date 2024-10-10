@@ -65,23 +65,6 @@
           />
         </template>
         <Column
-          field="brand"
-          :header="$t('catalog.column.brand.header')"
-          style="min-width: 12rem"
-          sortable
-        >
-          <template #body="{ data }">
-            {{ data.brand }}
-          </template>
-          <template #filter="{ filterModel }">
-            <InputText
-              v-model="filterModel.value"
-              type="text"
-              :placeholder="$t('catalog.column.brand.search')"
-            />
-          </template>
-        </Column>
-        <Column
           field="model"
           :header="$t('catalog.column.model.header')"
           style="min-width: 12rem"
@@ -95,6 +78,23 @@
               v-model="filterModel.value"
               type="text"
               :placeholder="$t('catalog.column.model.search')"
+            />
+          </template>
+        </Column>
+        <Column
+          field="brand"
+          :header="$t('catalog.column.brand.header')"
+          style="min-width: 12rem"
+          sortable
+        >
+          <template #body="{ data }">
+            {{ data.brand }}
+          </template>
+          <template #filter="{ filterModel }">
+            <InputText
+              v-model="filterModel.value"
+              type="text"
+              :placeholder="$t('catalog.column.brand.search')"
             />
           </template>
         </Column>
