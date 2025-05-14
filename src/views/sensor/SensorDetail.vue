@@ -185,6 +185,7 @@ import Dialog from 'primevue/dialog'
 import DataTable from 'primevue/datatable'
 import Column from 'primevue/column'
 import { useToast } from 'primevue/usetoast'
+import catalogStore from '../../store/catalogStore'
 
 const { t } = useI18n()
 const toast = useToast()
@@ -193,6 +194,15 @@ const route = useRoute()
 const sensor = ref({})
 const showBrandDetails = ref(false)
 const brandDetails = ref(null)
+
+// Helper function to get catalog URL based on environment
+const getCatalogUrl = () => {
+  if (process.env.NODE_ENV === 'development') {
+    return '/catalog.json' // Local path in public folder
+  } else {
+    return 'https://raw.githubusercontent.com/lab240/napi-catalog/refs/heads/main/catalog.json'
+  }
+}
 
 const setMetaTags = (sensorData) => {
   const metaTags = [
@@ -222,44 +232,90 @@ const setMetaTags = (sensorData) => {
 
 const fetchSensorData = async (model) => {
   try {
-    const response = await axios.get(
-      'https://raw.githubusercontent.com/lab240/napi-catalog/refs/heads/main/catalog.json'
-    )
-    const catalog = response.data
-    for (const brand in catalog) {
-      if (catalog[brand].meta) {
-        for (const modelKey in catalog[brand]) {
-          if (catalog[brand][modelKey].meta && catalog[brand][modelKey].meta.model === model) {
-            sensor.value = {
-              brand: catalog[brand].meta.vendor || brand,
-              model: catalog[brand][modelKey].meta.model,
-              description: catalog[brand][modelKey].meta.description,
-              documentation: catalog[brand][modelKey].meta.documentation,
-              image_url: catalog[brand][modelKey].meta.image_url,
-              readme: catalog[brand][modelKey].meta.readme,
-              tags: catalog[brand][modelKey].meta.tags || [],
-              url: catalog[brand][modelKey].meta.url,
-              files: Object.keys(catalog[brand][modelKey]).reduce((acc, key) => {
-                if (key !== 'meta') {
-                  acc[key] = {
-                    ...catalog[brand][modelKey][key],
-                    files: catalog[brand][modelKey][key].files.map((file) => ({
-                      ...file,
-                      version: extractVersion(file.name)
-                    }))
-                  }
-                }
-                return acc
-              }, {})
-            }
-            setMetaTags(sensor.value)
-            brandDetails.value = catalog[brand].meta
-            return
-          }
+    // Make sure catalog is loaded
+    if (!catalogStore.isLoaded.value) {
+      await catalogStore.fetchCatalog()
+    }
+
+    const sensorData = catalogStore.getSensor(model)
+
+    if (sensorData) {
+      const { brandData, modelData } = sensorData
+
+      // Prepare file structure to collect all files
+      const files = {}
+
+      // Process configs if they exist
+      if (modelData.configs) {
+        files.configs = {
+          files: modelData.configs.map((file) => ({
+            ...file,
+            version: extractVersion(file.name)
+          }))
         }
       }
+
+      // Process dashboard if it exists
+      if (modelData.dashboard) {
+        // Main dashboard files
+        if (modelData.dashboard.files) {
+          files.dashboard = {
+            files: modelData.dashboard.files.map((file) => ({
+              ...file,
+              version: extractVersion(file.name)
+            })),
+            meta: modelData.dashboard.meta || {}
+          }
+        }
+
+        // Process any nested dashboard versions/variants
+        Object.keys(modelData.dashboard).forEach((key) => {
+          if (key !== 'files' && key !== 'meta' && modelData.dashboard[key].files) {
+            files[`dashboard-${key}`] = {
+              files: modelData.dashboard[key].files.map((file) => ({
+                ...file,
+                version: extractVersion(file.name)
+              })),
+              meta: modelData.dashboard.meta || {}
+            }
+          }
+        })
+      }
+
+      // Add any other file categories that might be in the model data
+      Object.keys(modelData).forEach((key) => {
+        if (
+          key !== 'meta' &&
+          key !== 'configs' &&
+          key !== 'dashboard' &&
+          Array.isArray(modelData[key])
+        ) {
+          files[key] = {
+            files: modelData[key].map((file) => ({
+              ...file,
+              version: extractVersion(file.name)
+            }))
+          }
+        }
+      })
+
+      sensor.value = {
+        brand: brandData.meta.vendor || Object.keys(brandData)[0],
+        model: modelData.meta.model,
+        description: modelData.meta.description,
+        documentation: modelData.meta.documentation,
+        image_url: modelData.meta.image_url,
+        readme: modelData.meta.readme,
+        tags: modelData.meta.tags || [],
+        url: modelData.meta.url,
+        files: files
+      }
+
+      setMetaTags(sensor.value)
+      brandDetails.value = brandData.meta
+    } else {
+      sensor.value = {}
     }
-    sensor.value = {}
   } catch (error) {
     console.error('Error fetching sensor data:', error)
     sensor.value = {}

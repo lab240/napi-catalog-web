@@ -142,9 +142,8 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, watch } from 'vue'
 import { useRouter } from 'vue-router'
-import axios from 'axios'
 import { FilterMatchMode, FilterOperator } from '@primevue/core/api'
 import Button from 'primevue/button'
 import InputText from 'primevue/inputtext'
@@ -152,6 +151,7 @@ import Tag from 'primevue/tag'
 import DataTable from 'primevue/datatable'
 import Column from 'primevue/column'
 import Select from 'primevue/select'
+import catalogStore from '../store/catalogStore'
 
 const sensors = ref([])
 const filters = ref()
@@ -161,14 +161,26 @@ const router = useRouter()
 const selectedSensor = ref()
 
 onMounted(async () => {
-  const response = await axios.get(
-    'https://raw.githubusercontent.com/lab240/napi-catalog/refs/heads/main/catalog.json'
-  )
-  const catalog = response.data
-  sensors.value = getSensors(catalog)
+  // Load the catalog data
+  await catalogStore.fetchCatalog()
+
+  // Get the sensors from the store
+  sensors.value = catalogStore.getAllSensors()
   tags.value = getAllTags(sensors.value)
   loading.value = false
 })
+
+// Watch for changes in the catalog if it's loaded after component mount
+watch(
+  () => catalogStore.isLoaded.value,
+  (isLoaded) => {
+    if (isLoaded) {
+      sensors.value = catalogStore.getAllSensors()
+      tags.value = getAllTags(sensors.value)
+      loading.value = false
+    }
+  }
+)
 
 const initFilters = () => {
   filters.value = {
@@ -192,24 +204,6 @@ initFilters()
 
 const clearFilter = () => {
   initFilters()
-}
-
-const getSensors = (data) => {
-  const sensorsArray = []
-  for (const brand in data) {
-    if (data[brand].meta) {
-      for (const model in data[brand]) {
-        if (data[brand][model].meta) {
-          sensorsArray.push({
-            brand: data[brand].meta.vendor || brand,
-            model: data[brand][model].meta.model,
-            tags: data[brand][model].meta.tags || []
-          })
-        }
-      }
-    }
-  }
-  return sensorsArray
 }
 
 const getAllTags = (sensors) => {

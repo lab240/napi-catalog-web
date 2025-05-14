@@ -1,0 +1,301 @@
+{
+  "elemy": {
+    "meta": {
+      "brand": "Elemy",
+      "description": "Российские системы мониторинга и управления электропитанием для IT и АСУТП",
+      "logo": "http://www.elemy.ru/image/cache/webp/catalog/elemy_logo2-260x80.webp",
+      "website": "http://www.elemy.ru"
+    },
+    "ats-1205": {
+      "meta": {
+        "description": "ATS-1205 - Автоматический переключатель питания (до 8-ми потребителей)",
+        "documentation": "http://www.elemy.ru/storage/download/ATS-1205%20Technical%20Documentation.zip",
+        "image_url": "http://www.elemy.ru/image/cache/webp/catalog/Products-new/ats-1205-16-62-front-1500x500.webp",
+        "model": "ATS-1205",
+        "tags": [
+          "SNMP"
+        ],
+        "url": "http://www.elemy.ru/rack-ats/ats-1205",
+        "vendor": "Elemy",
+        "readme": "https://github.com/lab240/napi-catalog/blob/main/catalog/Elemy/ATS-1205/README.md"
+      },
+      "configs": [
+        {
+          "name": "Elemy_ATS-1205_snmp_1.0.0.conf",
+          "url": "https://raw.githubusercontent.com/lab240/napi-catalog/refs/heads/main/catalog/Elemy/ATS-1205/SNMP/Elemy_ATS-1205_snmp_1.0.0.conf",
+          "tag": "snmp"
+        }
+      ]
+    },
+    "ats-1204": {
+      "meta": {
+        "description": "ATS-1204 - Автоматический стоечный переключатель питания (до 10-ти потребителей)",
+        "documentation": "http://www.elemy.ru/storage/download/ATS-1204%20Technical%20Documentation.zip",
+        "image_url": "http://www.elemy.ru/image/cache/webp/catalog/Products-new/ats-1204-16-62-front-1500x500.webp",
+        "model": "ATS-1204",
+        "tags": [
+          "SNMP",
+          "dashboard"
+        ],
+        "url": "http://www.elemy.ru/rack-ats/ats-1204-16",
+        "vendor": "Elemy",
+        "readme": "https://github.com/lab240/napi-catalog/blob/main/catalog/Elemy/ATS-1204/README.md"
+      },
+      "configs": [
+        {
+          "name": "Elemy_ATS-1204_snmp_1.0.0.conf",
+          "url": "https://raw.githubusercontent.com/lab240/napi-catalog/refs/heads/main/catalog/Elemy/ATS-1204/SNMP/Elemy_ATS-1204_snmp_1.0.0.conf",
+          "tag": "snmp"
+        },
+        {
+          "name": "Elemy_ATS-1204_snmp_1.0.1.conf",
+          "url": "https://raw.githubusercontent.com/lab240/napi-catalog/refs/heads/main/catalog/Elemy/ATS-1204/SNMP/Elemy_ATS-1204_snmp_1.0.1.conf",
+          "tag": "snmp"
+        }
+      ],
+      "dashboard": {
+        "files": [
+          {
+            "name": "ATS-1204-1715690152043.json",
+            "url": "https://raw.githubusercontent.com/lab240/napi-catalog/refs/heads/main/catalog/Elemy/ATS-1204/dashboard/ATS-1204-1715690152043.json"
+          }
+        ],
+        "meta": {
+          "readme": "https://github.com/lab240/napi-catalog/blob/main/catalog/Elemy/ATS-1204/dashboard/README.md"
+        }
+      }
+    },
+    "ipdu1502": {
+      "meta": {
+        "description": "IPDU-1502 - Интеллектуальный горизонтальный блок распределения питания (6 выходов)",
+        "documentation": "https://www.elemy.ru/storage/download/iPDU-1502%20Technical%20Documentation.zip",
+        "image_url": "https://www.elemy.ru/image/cache/webp/catalog/products/1-1500x173.webp",
+        "model": "IPDU-1502",
+        "tags": [
+          "SNMP",
+          "dashboard"
+        ],
+        "url": "https://www.elemy.ru/ipdu-1502",
+        "vendor": "Elemy",
+        "readme": "https://github.com/lab240/napi-catalog/blob/main/catalog/Elemy/IPDU1502/README.md"
+      },
+      "configs": [
+        {
+          "name": "Elemy_PDU1502_SNMP_1.0.0.conf",
+          "url": "https://raw.githubusercontent.com/lab240/napi-catalog/refs/heads/main/catalog/Elemy/IPDU1502/SNMP/Elemy_PDU1502_SNMP_1.0.0.conf",
+          "tag": "snmp"
+        }
+      ],
+      "dashboard": {
+        "files": [
+          {
+            "name": "IPDU-1502-1715690197754.json",
+            "url": "https://raw.githubusercontent.com/lab240/napi-catalog/refs/heads/main/catalog/Elemy/IPDU1502/dashboard/IPDU-1502-1715690197754.json"
+          }
+        ],
+        "meta": {
+          "readme": "https://github.com/lab240/napi-catalog/blob/main/catalog/Elemy/IPDU1502/dashboard/README.md"
+        }
+      }
+    },
+    "ccu1001": {
+      "meta": {
+        "description": "CCU-1001 - Контроллер мониторинга и управления (16 дискретных входов, 8 дискретных выходов)",
+        "documentation": "https://www.elemy.ru/storage/download/CCU-1001%20Technical%20Documentation.zip",
+        "image_url": "https://www.elemy.ru/image/cache/webp/catalog/products/CCU-1001f3d-1500x999.webp",
+        "model": "CCU-1001",
+        "tags": [
+          "SNMP",
+          "dashboard"
+        ],
+        "url": "https://www.elemy.ru/ccu-1001",
+        "vendor": "Elemy",
+        "readme": "https://github.com/lab240/napi-catalog/blob/main/catalog/Elemy/CCU1001/README.md"
+      },
+      "configs": [
+        {
+          "name": "Elemy_CCU1001_snmp_1.0.0.conf",
+          "url": "https://raw.githubusercontent.com/lab240/napi-catalog/refs/heads/main/catalog/Elemy/CCU1001/SNMP/Elemy_CCU1001_snmp_1.0.0.conf",
+          "tag": "snmp"
+        }
+      ],
+      "dashboard": {
+        "files": [
+          {
+            "name": "CCU-1001-1715690184272.json",
+            "url": "https://raw.githubusercontent.com/lab240/napi-catalog/refs/heads/main/catalog/Elemy/CCU1001/dashboard/CCU-1001-1715690184272.json"
+          }
+        ],
+        "meta": {
+          "readme": "https://github.com/lab240/napi-catalog/blob/main/catalog/Elemy/CCU1001/dashboard/README.md"
+        }
+      }
+    }
+  },
+  "icp-das": {
+    "meta": {
+      "brand": "icp-das",
+      "description": "Industrial Automation Manufacturer",
+      "logo": "https://www.icpdas.com/en/_images/all/logo.png",
+      "website": "https://www.icpdas.com/"
+    },
+    "pm-3112": {
+      "meta": {
+        "description": "PM-3112 - Измеритель параметров электросети",
+        "documentation": "https://icp-das.ru/collection/izmeriteli-odnofaznye",
+        "image_url": "https://files.icp-das.ru/r/TtYWqjjUUos/rs:fill-down:300:300:1/q:100/plain/images/collections/1/2477/93546925/large_PM-3112-100_la02.png@webp",
+        "model": "PM-3112",
+        "tags": [
+          "modbusRTU",
+          "dashboard"
+        ],
+        "url": "https://icp-das.ru/collection/izmeriteli-odnofaznye",
+        "vendor": "ICP-DAS",
+        "readme": "https://github.com/lab240/napi-catalog/blob/main/catalog/ICP-DAS/PM-3112/README.md"
+      },
+      "configs": [
+        {
+          "name": "PM-3112_ModbusRTU_1.0.0.conf",
+          "url": "https://raw.githubusercontent.com/lab240/napi-catalog/refs/heads/main/catalog/ICP-DAS/PM-3112/ModbusRTU/PM-3112_ModbusRTU_1.0.0.conf",
+          "tag": "modbusrtu"
+        }
+      ],
+      "dashboard": {
+        "files": [
+          {
+            "name": "PM-3112-1728995722993.json",
+            "url": "https://raw.githubusercontent.com/lab240/napi-catalog/refs/heads/main/catalog/ICP-DAS/PM-3112/dashboard/PM-3112-1728995722993.json"
+          }
+        ],
+        "meta": {
+          "readme": "https://github.com/lab240/napi-catalog/blob/main/catalog/ICP-DAS/PM-3112/dashboard/README.md"
+        }
+      }
+    },
+    "dl-303": {
+      "meta": {
+        "description": "DL-303 - Модуль для измерения температуры, влажности и концентрации CO и CO2 с протоколированием данных, RS485, Ethernet, PoE, протоколы DCON, Modbus RTU, Modbus TCP, белый корпус, RoHS",
+        "documentation": "https://www.icpdas.com/web/product/download/iiot/sensor/dl-300/document/data_sheet/DL-301_302_303_304_305_306_307_308_en.pdf",
+        "image_url": "https://www.icpdas.com/web/product/product_Image/png/iiot/sensor/DL-300/DL-303/DL-303_la01.png",
+        "model": "DL-303",
+        "tags": [
+          "modbusTCP",
+          "modbusRTU",
+          "dashboard"
+        ],
+        "url": "https://www.icpdas.com/en/product/DL-303",
+        "vendor": "ICP-DAS",
+        "readme": "https://github.com/lab240/napi-catalog/blob/main/catalog/ICP-DAS/DL-303/README.md"
+      },
+      "configs": [
+        {
+          "name": "ICD-DAS_DL-303_ModbusTCP_1.0.0.conf",
+          "url": "https://raw.githubusercontent.com/lab240/napi-catalog/refs/heads/main/catalog/ICP-DAS/DL-303/ModbusTCP/ICD-DAS_DL-303_ModbusTCP_1.0.0.conf",
+          "tag": "modbustcp"
+        },
+        {
+          "name": "ICD-DAS_DL-303_ModbusRTU_1.0.0.conf",
+          "url": "https://raw.githubusercontent.com/lab240/napi-catalog/refs/heads/main/catalog/ICP-DAS/DL-303/ModbusRTU/ICD-DAS_DL-303_ModbusRTU_1.0.0.conf",
+          "tag": "modbusrtu"
+        }
+      ],
+      "dashboard": {
+        "files": [
+          {
+            "name": "DL-303-1717671343194.json",
+            "url": "https://raw.githubusercontent.com/lab240/napi-catalog/refs/heads/main/catalog/ICP-DAS/DL-303/dashboard/DL-303-1717671343194.json"
+          }
+        ],
+        "meta": {
+          "readme": "https://github.com/lab240/napi-catalog/blob/main/catalog/ICP-DAS/DL-303/dashboard/README.md"
+        }
+      }
+    }
+  },
+  "exagate": {
+    "meta": {
+      "brand": "Exagate",
+      "description": "Exagate solutions monitor the energy infrastructure in critical facilities such as Data Centers, computer or server rooms, MERs, SERs and unmanned, remote locations. They report the current status 24/7 and enables you to increase the operational efficiency of your facility through energy management of the devices.",
+      "logo": "https://www.exagate.com/demos/assets/images/logo.png",
+      "website": "https://www.exagate.com/"
+    },
+    "pwg-9332-307-901-siph": {
+      "meta": {
+        "description": "Устройство распределения электропитания Exagate PWG-9332-307-91-SIPH POWERGuard PDU, 32A Single Phase 1U, 8 x IEC Sockets (7 x C13 - 1 x C19), Outlet Metering",
+        "documentation": "https://nnz-ipc.ru/files/documentation/exagate/pwg-9332-307-91-siph_ds_ru.pdf",
+        "image_url": "https://nnz-ipc.ru/images/cms/data/import_files/1d/1d9d3ad057f311eeb91d00155d50c111_b192dd53e15811eeb91e00155d50c111.jpg",
+        "model": "PWG-9332-307-901-SIPH",
+        "tags": [
+          "SNMP",
+          "dashboard"
+        ],
+        "url": "https://nnz-ipc.ru/catalogue/dc_equipment/power_distribution/ipdu/pwg-9332-307-91-siph/",
+        "vendor": "Exagate",
+        "readme": "https://github.com/lab240/napi-catalog/blob/main/catalog/Exagate/PWG-9332-307-901-SIPH/README.md"
+      },
+      "configs": [
+        {
+          "name": "Exagate_PWG-9332-307-901-SIPH_snmp_1.0.0.conf",
+          "url": "https://raw.githubusercontent.com/lab240/napi-catalog/refs/heads/main/catalog/Exagate/PWG-9332-307-901-SIPH/snmp/Exagate_PWG-9332-307-901-SIPH_snmp_1.0.0.conf",
+          "tag": "snmp"
+        }
+      ],
+      "dashboard": {
+        "files": [
+          {
+            "name": "Exagate-SIPH-1717155233070.json",
+            "url": "https://raw.githubusercontent.com/lab240/napi-catalog/refs/heads/main/catalog/Exagate/PWG-9332-307-901-SIPH/dashboard/Exagate-SIPH-1717155233070.json"
+          },
+          {
+            "name": "Exagate-SIPH-OUTLETS-1717154876838.json",
+            "url": "https://raw.githubusercontent.com/lab240/napi-catalog/refs/heads/main/catalog/Exagate/PWG-9332-307-901-SIPH/dashboard/Exagate-SIPH-OUTLETS-1717154876838.json"
+          }
+        ],
+        "meta": {
+          "readme": "https://github.com/lab240/napi-catalog/blob/main/catalog/Exagate/PWG-9332-307-901-SIPH/dashboard/README.md"
+        }
+      }
+    },
+    "sysguard-7001": {
+      "meta": {
+        "description": "SYSGuard 7001 - Система мониторинга параметров окружающей среды и  управления SYSGuard, обеспечивающее контроль помещений и критически важных объектов разного размера.",
+        "documentation": "https://www.exagate.com/pdf/sysguard-en.pdf",
+        "image_url": "https://www.exagate.com/demos/assets/images/product/sysguard-7001.png",
+        "model": "SYSGuard-7001",
+        "tags": [
+          "SNMP",
+          "dashboard"
+        ],
+        "url": "https://www.exagate.com/sysguard7001-en.php",
+        "vendor": "Exagate",
+        "readme": "https://github.com/lab240/napi-catalog/blob/main/catalog/Exagate/SYSGuard-7001/README.md"
+      },
+      "configs": [
+        {
+          "name": "Exagate_SYSGuard-7001_snmp_1.0.0.conf",
+          "url": "https://raw.githubusercontent.com/lab240/napi-catalog/refs/heads/main/catalog/Exagate/SYSGuard-7001/snmp/Exagate_SYSGuard-7001_snmp_1.0.0.conf",
+          "tag": "snmp"
+        }
+      ],
+      "dashboard": {
+        "meta": {
+          "readme": "https://github.com/lab240/napi-catalog/blob/main/catalog/Exagate/SYSGuard-7001/dashboard/README.md"
+        },
+        "files": [
+          {
+            "name": "SYSG-7001-1716996174931.json",
+            "url": "https://raw.githubusercontent.com/lab240/napi-catalog/refs/heads/main/catalog/Exagate/SYSGuard-7001/dashboard/SYSG-7001-1716996174931.json"
+          }
+        ],
+        "ver-with-varios-temp-sensors-10x": {
+          "files": [
+            {
+              "name": "SYSG-7001-1717421275019.json",
+              "url": "https://raw.githubusercontent.com/lab240/napi-catalog/refs/heads/main/catalog/Exagate/SYSGuard-7001/dashboard/ver-with-varios-temp-sensors-10x/SYSG-7001-1717421275019.json"
+            }
+          ]
+        }
+      }
+    }
+  }
+}
