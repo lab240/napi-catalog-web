@@ -208,15 +208,15 @@ const setMetaTags = (sensorData) => {
   const metaTags = [
     {
       property: 'og:title',
-      content: `${sensorData.brand} ${sensorData.model}` || 'NaPi sensor catalog'
+      content: `${sensorData.brand} ${sensorData.model}` || 'NaPi sensor catalog',
     },
     { property: 'og:description', content: sensorData.description || '' },
     {
       property: 'og:image',
-      content: sensorData.image_url || 'https://sensor.napilinux.ru/logo.svg'
+      content: sensorData.image_url || 'https://sensor.napilinux.ru/logo.svg',
     },
     { property: 'og:url', content: window.location.href },
-    { property: 'og:type', content: 'website' }
+    { property: 'og:type', content: 'website' },
   ]
 
   metaTags.forEach((tag) => {
@@ -250,8 +250,8 @@ const fetchSensorData = async (model) => {
         files.configs = {
           files: modelData.configs.map((file) => ({
             ...file,
-            version: extractVersion(file.name)
-          }))
+            version: extractVersion(file.name),
+          })),
         }
       }
 
@@ -262,9 +262,9 @@ const fetchSensorData = async (model) => {
           files.dashboard = {
             files: modelData.dashboard.files.map((file) => ({
               ...file,
-              version: extractVersion(file.name)
+              version: extractVersion(file.name),
             })),
-            meta: modelData.dashboard.meta || {}
+            meta: modelData.dashboard.meta || {},
           }
         }
 
@@ -274,9 +274,9 @@ const fetchSensorData = async (model) => {
             files[`dashboard-${key}`] = {
               files: modelData.dashboard[key].files.map((file) => ({
                 ...file,
-                version: extractVersion(file.name)
+                version: extractVersion(file.name),
               })),
-              meta: modelData.dashboard.meta || {}
+              meta: modelData.dashboard.meta || {},
             }
           }
         })
@@ -293,8 +293,8 @@ const fetchSensorData = async (model) => {
           files[key] = {
             files: modelData[key].map((file) => ({
               ...file,
-              version: extractVersion(file.name)
-            }))
+              version: extractVersion(file.name),
+            })),
           }
         }
       })
@@ -308,7 +308,7 @@ const fetchSensorData = async (model) => {
         readme: modelData.meta.readme,
         tags: modelData.meta.tags || [],
         url: modelData.meta.url,
-        files: files
+        files: files,
       }
 
       setMetaTags(sensor.value)
@@ -328,7 +328,7 @@ const setTagColor = (tag) => {
     'modbus rtu': 'success',
     modbusrtu: 'success',
     'modbus tcp': 'warn',
-    modbustcp: 'warn'
+    modbustcp: 'warn',
   }
 
   return tagColors[tag.toLowerCase()] || 'secondary'
@@ -358,14 +358,14 @@ const downloadFile = async (url, fileName) => {
       severity: 'info',
       summary: t('toast.download.summary'),
       detail: t('toast.download.detail') + fileName,
-      life: 5000
+      life: 5000,
     })
   } catch (error) {
     toast.add({
       severity: 'error',
       summary: t('toast.download.error'),
       detail: t('toast.download.errorDetail'),
-      life: 5000
+      life: 5000,
     })
     console.error('Error downloading the file', error)
   }
@@ -379,6 +379,6 @@ watch(
   () => route.params.model,
   (newModel) => {
     fetchSensorData(newModel)
-  }
+  },
 )
 </script>

@@ -55,7 +55,7 @@ const getSensor = (model) => {
         ) {
           return {
             brandData: catalog.value[brand],
-            modelData: catalog.value[brand][modelKey]
+            modelData: catalog.value[brand][modelKey],
           }
         }
       }
@@ -81,7 +81,7 @@ const getAllSensors = () => {
           sensorsArray.push({
             brand: catalog.value[brand].meta.vendor || brand,
             model: catalog.value[brand][model].meta.model,
-            tags: catalog.value[brand][model].meta.tags || []
+            tags: catalog.value[brand][model].meta.tags || [],
           })
         }
       }
@@ -98,5 +98,5 @@ export default {
   error,
   fetchCatalog,
   getSensor,
-  getAllSensors
+  getAllSensors,
 }

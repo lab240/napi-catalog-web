@@ -14,6 +14,6 @@ export default createI18n({
   runtimeOnly: false,
   messages: {
     ru,
-    en
-  }
+    en,
+  },
 })

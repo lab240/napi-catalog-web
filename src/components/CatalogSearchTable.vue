@@ -179,7 +179,7 @@ watch(
       tags.value = getAllTags(sensors.value)
       loading.value = false
     }
-  }
+  },
 )
 
 const initFilters = () => {
@@ -187,16 +187,16 @@ const initFilters = () => {
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
     brand: {
       operator: FilterOperator.AND,
-      constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }]
+      constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }],
     },
     model: {
       operator: FilterOperator.AND,
-      constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }]
+      constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }],
     },
     tags: {
       operator: FilterOperator.AND,
-      constraints: [{ value: null, matchMode: FilterMatchMode.CONTAINS }]
-    }
+      constraints: [{ value: null, matchMode: FilterMatchMode.CONTAINS }],
+    },
   }
 }
 
@@ -222,7 +222,7 @@ const setTagColor = (tag) => {
     'modbus rtu': 'success',
     modbusrtu: 'success',
     'modbus tcp': 'warn',
-    modbustcp: 'warn'
+    modbustcp: 'warn',
   }
 
   return tagColors[tag.toLowerCase()] || 'secondary'

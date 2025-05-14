@@ -35,7 +35,7 @@ const themeItems = computed(() => [
         command: () => {
           setDarkMode()
           updateCurrentIcon()
-        }
+        },
       },
       {
         label: t('theme.light'),
@@ -43,7 +43,7 @@ const themeItems = computed(() => [
         command: () => {
           setLightMode()
           updateCurrentIcon()
-        }
+        },
       },
       {
         label: t('theme.system'),
@@ -51,10 +51,10 @@ const themeItems = computed(() => [
         command: () => {
           setOSPreference()
           updateCurrentIcon()
-        }
-      }
-    ]
-  }
+        },
+      },
+    ],
+  },
 ])
 
 const themeToggle = (event: any) => {

@@ -8,20 +8,20 @@ const router = createRouter({
     {
       path: '/:pathMatch(.*)*',
       name: 'NotFound',
-      component: HomeView
+      component: HomeView,
     },
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: HomeView,
     },
     {
       path: '/sensor/:model',
       name: 'sensor',
       component: SensorDetail,
-      props: true
-    }
-  ]
+      props: true,
+    },
+  ],
 })
 
 export default router

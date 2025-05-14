@@ -14,20 +14,20 @@ const externalLink = [
     label: t('header.links.catalog'),
     icon: 'pi pi-github',
     url: 'https://github.com/lab240/napi-catalog',
-    target: '_blank'
+    target: '_blank',
   },
   {
     label: 'napi-linux',
     icon: 'pi pi-link',
     url: 'https://napilinux.ru/',
-    target: '_blank'
+    target: '_blank',
   },
   {
     label: 'napi-world',
     icon: 'pi pi-link',
     url: 'https://napiworld.ru/',
-    target: '_blank'
-  }
+    target: '_blank',
+  },
 ]
 
 onMounted(() => {
@@ -89,7 +89,7 @@ watch(selectedLocale, (newLocale) => {
               v-tooltip.bottom="{
                 value: $t('header.links.tooltip'),
                 showDelay: 1000,
-                hideDelay: 300
+                hideDelay: 300,
               }"
               outlined
               text

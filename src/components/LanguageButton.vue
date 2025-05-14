@@ -44,7 +44,7 @@ const localeOptions = computed(() => {
     value: loc,
     command: () => {
       updateLocale(loc)
-    }
+    },
   }))
 })
 </script>

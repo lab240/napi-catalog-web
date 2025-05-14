@@ -15,14 +15,14 @@ const app = createApp(App)
 
 app.use(router)
 app.use(PrimeVue, {
-    unstyled: false,
-    ripple: true,
-    theme: {
-        preset: Aura,
-        options: {
-            darkModeSelector: '.app-dark'
-        }
-    }
+  unstyled: false,
+  ripple: true,
+  theme: {
+    preset: Aura,
+    options: {
+      darkModeSelector: '.app-dark',
+    },
+  },
 })
 app.use(i18n)
 app.use(ConfirmationService)
