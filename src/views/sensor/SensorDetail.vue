@@ -1,7 +1,7 @@
 <template>
   <Card v-if="sensor.model" class="mb-3 overflow-auto">
     <template #title>
-      <h1 class="text-2xl font-bold">{{ brandDetails.brand }} {{ sensor.model }}</h1>
+      <h1 class="text-2xl font-bold">{{ brandDetails?.brand || '' }} {{ sensor.model }}</h1>
       <div class="flex flex-col sm:flex-row gap-2 mt-2 mb-2">
         <Button
           as="a"
@@ -198,17 +198,79 @@ import Dialog from 'primevue/dialog'
 import DataTable from 'primevue/datatable'
 import Column from 'primevue/column'
 import { useToast } from 'primevue/usetoast'
-import catalogStore from '../../store/catalogStore'
+import catalogStore from '@/store/catalogStore'
+
+// Define interfaces for our data structures
+interface FileData {
+  name: string
+  url: string
+  version?: string | null
+  tag?: string
+}
+
+interface FileCategory {
+  files: FileData[]
+  meta?: {
+    readme?: string
+    [key: string]: string | number | boolean | null | undefined
+  }
+}
+
+interface SensorData {
+  brand: string
+  model: string
+  description: string
+  documentation: string
+  image_url: string
+  readme: string
+  tags: string[]
+  url: string
+  files: Record<string, FileCategory>
+}
+
+interface BrandDetails {
+  brand: string
+  vendor?: string
+  description: string
+  logo: string
+  website: string
+  [key: string]: string | number | boolean | string[] | null | undefined
+}
+
+// Additional interfaces to match the catalog structure
+interface ModelFiles {
+  name: string
+  url: string
+  version?: string
+  tag?: string
+}
+
+interface DashboardData {
+  files?: ModelFiles[]
+  meta?: Record<string, string | number | boolean | null | undefined>
+  [key: string]: { files?: ModelFiles[] } | unknown
+}
 
 const { t } = useI18n()
 const toast = useToast()
 
 const route = useRoute()
-const sensor = ref({})
+// Initialize with proper types
+const sensor = ref<SensorData>({
+  brand: '',
+  model: '',
+  description: '',
+  documentation: '',
+  image_url: '',
+  readme: '',
+  tags: [],
+  url: '',
+  files: {},
+})
 const showBrandDetails = ref(false)
-const brandDetails = ref(null)
+const brandDetails = ref<BrandDetails | null>(null)
 
-const setMetaTags = (sensorData) => {
+const setMetaTags = (sensorData: SensorData) => {
   const metaTags = [
     {
       property: 'og:title',
@@ -234,7 +296,7 @@ const setMetaTags = (sensorData) => {
   })
 }
 
-const fetchSensorData = async (model) => {
+const fetchSensorData = async (model: string) => {
   try {
     // Make sure catalog is loaded
     if (!catalogStore.isLoaded.value) {
@@ -247,12 +309,12 @@ const fetchSensorData = async (model) => {
       const { brandData, modelData } = sensorData
 
       // Prepare file structure to collect all files
-      const files = {}
+      const files: Record<string, FileCategory> = {}
 
       // Process configs if they exist
-      if (modelData.configs) {
+      if (modelData.configs && Array.isArray(modelData.configs)) {
         files.configs = {
-          files: modelData.configs.map((file) => ({
+          files: modelData.configs.map((file: ModelFiles) => ({
             ...file,
             version: extractVersion(file.name),
           })),
@@ -260,27 +322,36 @@ const fetchSensorData = async (model) => {
       }
 
       // Process dashboard if it exists
-      if (modelData.dashboard) {
+      if (modelData.dashboard && typeof modelData.dashboard === 'object') {
+        const dashboard = modelData.dashboard as DashboardData
+
         // Main dashboard files
-        if (modelData.dashboard.files) {
+        if (dashboard.files && Array.isArray(dashboard.files)) {
           files.dashboard = {
-            files: modelData.dashboard.files.map((file) => ({
+            files: dashboard.files.map((file: ModelFiles) => ({
               ...file,
               version: extractVersion(file.name),
             })),
-            meta: modelData.dashboard.meta || {},
+            meta: dashboard.meta || {},
           }
         }
 
         // Process any nested dashboard versions/variants
-        Object.keys(modelData.dashboard).forEach((key) => {
-          if (key !== 'files' && key !== 'meta' && modelData.dashboard[key].files) {
+        Object.keys(dashboard).forEach((key) => {
+          const dashItem = dashboard[key] as { files?: ModelFiles[] }
+          if (
+            key !== 'files' &&
+            key !== 'meta' &&
+            dashItem &&
+            dashItem.files &&
+            Array.isArray(dashItem.files)
+          ) {
             files[`dashboard-${key}`] = {
-              files: modelData.dashboard[key].files.map((file) => ({
+              files: dashItem.files.map((file: ModelFiles) => ({
                 ...file,
                 version: extractVersion(file.name),
               })),
-              meta: modelData.dashboard.meta || {},
+              meta: dashboard.meta || {},
             }
           }
         })
@@ -295,7 +366,7 @@ const fetchSensorData = async (model) => {
           Array.isArray(modelData[key])
         ) {
           files[key] = {
-            files: modelData[key].map((file) => ({
+            files: (modelData[key] as ModelFiles[]).map((file: ModelFiles) => ({
               ...file,
               version: extractVersion(file.name),
             })),
@@ -305,36 +376,63 @@ const fetchSensorData = async (model) => {
 
       sensor.value = {
         // Use brand field from meta instead of vendor or object key
-        brand: brandData.meta.brand || brandData.meta.vendor || Object.keys(brandData)[0],
-        model: modelData.meta.model,
-        description: modelData.meta.description,
-        documentation: modelData.meta.documentation,
-        image_url: modelData.meta.image_url,
-        readme: modelData.meta.readme,
-        tags: modelData.meta.tags || [],
-        url: modelData.meta.url,
+        brand: String(brandData.meta.brand || brandData.meta.vendor || Object.keys(brandData)[0]),
+        model: String(modelData.meta.model || ''),
+        description: String(modelData.meta.description || ''),
+        documentation: String(modelData.meta.documentation || ''),
+        image_url: String(modelData.meta.image_url || ''),
+        readme: String(modelData.meta.readme || ''),
+        tags: Array.isArray(modelData.meta.tags) ? modelData.meta.tags : [],
+        url: String(modelData.meta.url || ''),
         files: files,
       }
 
       setMetaTags(sensor.value)
-      // Use the correct brand name
-      brandDetails.value = brandData.meta
+
+      // Create a properly typed brand details object
+      brandDetails.value = {
+        brand: String(brandData.meta.brand || brandData.meta.vendor || ''),
+        description: String(brandData.meta.description || ''),
+        logo: String(brandData.meta.logo || ''),
+        website: String(brandData.meta.website || ''),
+        ...brandData.meta,
+      }
     } else {
-      sensor.value = {}
+      sensor.value = {
+        brand: '',
+        model: '',
+        description: '',
+        documentation: '',
+        image_url: '',
+        readme: '',
+        tags: [],
+        url: '',
+        files: {},
+      }
     }
   } catch (error) {
     console.error('Error fetching sensor data:', error)
-    sensor.value = {}
+    sensor.value = {
+      brand: '',
+      model: '',
+      description: '',
+      documentation: '',
+      image_url: '',
+      readme: '',
+      tags: [],
+      url: '',
+      files: {},
+    }
   }
 }
 
 // Check if any files have a tag property
-const hasFileTags = (files) => {
+const hasFileTags = (files: FileData[]) => {
   return files.some((file) => file.tag)
 }
 
-const setTagColor = (tag) => {
-  const tagColors = {
+const setTagColor = (tag: string) => {
+  const tagColors: Record<string, string> = {
     snmp: 'info',
     'modbus rtu': 'success',
     modbusrtu: 'success',
@@ -345,16 +443,16 @@ const setTagColor = (tag) => {
   return tagColors[tag.toLowerCase()] || 'secondary'
 }
 
-const extractVersion = (fileName) => {
+const extractVersion = (fileName: string) => {
   const versionMatch = fileName.match(/_(\d+\.\d+\.\d+)\.conf$/)
   return versionMatch ? versionMatch[1] : null
 }
 
-const hasVersions = (files) => {
+const hasVersions = (files: FileData[]) => {
   return files.some((file) => extractVersion(file.name) !== null)
 }
 
-const downloadFile = async (url, fileName) => {
+const downloadFile = async (url: string, fileName: string) => {
   try {
     const response = await axios.get(url, { responseType: 'blob' })
     const blob = new Blob([response.data], { type: response.headers['content-type'] })
@@ -383,13 +481,13 @@ const downloadFile = async (url, fileName) => {
 }
 
 onMounted(() => {
-  fetchSensorData(route.params.model)
+  fetchSensorData(route.params.model as string)
 })
 
 watch(
   () => route.params.model,
   (newModel) => {
-    fetchSensorData(newModel)
+    fetchSensorData(newModel as string)
   },
 )
 </script>

@@ -111,7 +111,7 @@
   "i18n-ally.keystyle": "nested",
   "i18n-ally.sortKeys": true,
   "i18n-ally.dirStructure": "auto",
-  "i18n-ally.sourceLanguage": "ru-RU",
+  "i18n-ally.sourceLanguage": "en-GB",
   "cSpell.allowCompoundWords": true,
   "cSpell.words": [
     "datatable",
@@ -120,5 +120,4 @@
     "modbus",
     "primevue"
   ],
-  "commentTranslate.targetLanguage": "ru",
 }

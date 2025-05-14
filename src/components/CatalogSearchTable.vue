@@ -141,7 +141,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted, computed, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { FilterMatchMode, FilterOperator } from '@primevue/core/api'
@@ -152,13 +152,46 @@ import DataTable from 'primevue/datatable'
 import Column from 'primevue/column'
 import Select from 'primevue/select'
 import catalogStore from '../store/catalogStore'
+import { type SensorListItem } from '@/store/catalogStore'
 
-const sensors = ref([])
-const filters = ref()
-const tags = ref([])
+// Define interfaces for local types
+interface TableFilters {
+  global: { value: string | null; matchMode: string }
+  brand: {
+    operator: string
+    constraints: { value: string | null; matchMode: string }[]
+  }
+  model: {
+    operator: string
+    constraints: { value: string | null; matchMode: string }[]
+  }
+  tags: {
+    operator: string
+    constraints: { value: string | null; matchMode: string }[]
+  }
+}
+
+// Properly type the ref variables
+const sensors = ref<SensorListItem[]>([])
+const filters = ref<TableFilters>({
+  global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  brand: {
+    operator: FilterOperator.AND,
+    constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }],
+  },
+  model: {
+    operator: FilterOperator.AND,
+    constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }],
+  },
+  tags: {
+    operator: FilterOperator.AND,
+    constraints: [{ value: null, matchMode: FilterMatchMode.CONTAINS }],
+  },
+})
+const tags = ref<string[]>([])
 const loading = ref(true)
 const router = useRouter()
-const selectedSensor = ref()
+const selectedSensor = ref<SensorListItem | null>(null)
 
 onMounted(async () => {
   // Load the catalog data
@@ -206,18 +239,18 @@ const clearFilter = () => {
   initFilters()
 }
 
-const getAllTags = (sensors) => {
-  const tagsSet = new Set()
-  sensors.forEach((sensor) => {
-    sensor.tags.forEach((tag) => {
+const getAllTags = (sensors: SensorListItem[]): string[] => {
+  const tagsSet = new Set<string>()
+  sensors.forEach((sensor: SensorListItem) => {
+    sensor.tags.forEach((tag: string) => {
       tagsSet.add(tag)
     })
   })
   return Array.from(tagsSet)
 }
 
-const setTagColor = (tag) => {
-  const tagColors = {
+const setTagColor = (tag: string): string => {
+  const tagColors: Record<string, string> = {
     snmp: 'info',
     'modbus rtu': 'success',
     modbusrtu: 'success',
@@ -228,7 +261,7 @@ const setTagColor = (tag) => {
   return tagColors[tag.toLowerCase()] || 'secondary'
 }
 
-const onRowClick = (event) => {
+const onRowClick = (event: { data: SensorListItem }) => {
   router.push({ path: `/sensor/${event.data.model}` })
 }
 
