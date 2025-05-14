@@ -95,6 +95,19 @@
               sortable
             >
             </Column>
+            <Column
+              v-if="hasFileTags(file.files)"
+              field="tag"
+              :header="$t('catalog.column.tags.header')"
+            >
+              <template #body="slotProps">
+                <Tag
+                  v-if="slotProps.data.tag"
+                  :value="slotProps.data.tag"
+                  :severity="setTagColor(slotProps.data.tag)"
+                />
+              </template>
+            </Column>
             <Column field="url" :header="$t('sensor.tables.header.download')">
               <template #body="slotProps">
                 <Button
@@ -172,7 +185,7 @@
   </Card>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import axios from 'axios'
@@ -194,15 +207,6 @@ const route = useRoute()
 const sensor = ref({})
 const showBrandDetails = ref(false)
 const brandDetails = ref(null)
-
-// Helper function to get catalog URL based on environment
-const getCatalogUrl = () => {
-  if (process.env.NODE_ENV === 'development') {
-    return '/catalog.json' // Local path in public folder
-  } else {
-    return 'https://raw.githubusercontent.com/lab240/napi-catalog/refs/heads/main/catalog.json'
-  }
-}
 
 const setMetaTags = (sensorData) => {
   const metaTags = [
@@ -300,7 +304,8 @@ const fetchSensorData = async (model) => {
       })
 
       sensor.value = {
-        brand: brandData.meta.vendor || Object.keys(brandData)[0],
+        // Use brand field from meta instead of vendor or object key
+        brand: brandData.meta.brand || brandData.meta.vendor || Object.keys(brandData)[0],
         model: modelData.meta.model,
         description: modelData.meta.description,
         documentation: modelData.meta.documentation,
@@ -312,6 +317,7 @@ const fetchSensorData = async (model) => {
       }
 
       setMetaTags(sensor.value)
+      // Use the correct brand name
       brandDetails.value = brandData.meta
     } else {
       sensor.value = {}
@@ -320,6 +326,11 @@ const fetchSensorData = async (model) => {
     console.error('Error fetching sensor data:', error)
     sensor.value = {}
   }
+}
+
+// Check if any files have a tag property
+const hasFileTags = (files) => {
+  return files.some((file) => file.tag)
 }
 
 const setTagColor = (tag) => {
